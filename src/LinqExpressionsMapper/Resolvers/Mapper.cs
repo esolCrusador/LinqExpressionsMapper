@@ -107,6 +107,16 @@ namespace System
             return dest;
         }
 
+        public static TDest Map<TMapper, TSource, TDest>(TSource source)
+            where TMapper : class, new()
+            where TDest : class, new()
+            where TSource : class
+        {
+            var dest = new TDest();
+
+            return Map<TMapper, TSource, TDest>(source, dest);
+        }
+
         #endregion
     }
 }
