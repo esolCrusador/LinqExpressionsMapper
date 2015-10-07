@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{94EE6975-2DB5-4F05-BBB2-ED710B476A93}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LinqExpressionsMapper</RootNamespace>
+    <AssemblyName>LinqExpressionsMapper</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>esolCrusador.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cultures\Culture.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Culture.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\FilterExpressionExtensions.cs" />
+    <Compile Include="Extensions\IFilterExpression.cs" />
+    <Compile Include="Extensions\LinqExpression\AggregateExpressionExtensions.cs" />
+    <Compile Include="Extensions\LinqExpression\ClassBehaviourExpressionExtensions.cs" />
+    <Compile Include="Extensions\LinqExpression\ContinuationsExpressionExtensions.cs" />
+    <Compile Include="Extensions\LinqExpression\EnumExpressionExtensions.cs" />
+    <Compile Include="Extensions\LinqExpression\ParameterReplacementExtensions.cs" />
+    <Compile Include="Extensions\LinqExpression\Rebinders\EnumerableMemberInitRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Rebinders\InitFromMemberInheritanceRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Rebinders\InitInheritanceRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Rebinders\InitRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Rebinders\MemberInitRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Visitors\ExpressionRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Visitors\MemberRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Visitors\ParameterChangeTypeRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Visitors\ParameterRebinder.cs" />
+    <Compile Include="Models\PairId.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolvers\Mapper.cs" />
+    <Compile Include="Resolvers\MapperLinqExpressionsExtension.cs" />
+    <Compile Include="Resolvers\MapperLinqSelectExtension.cs" />
+    <Compile Include="Resolvers\MapperResolver\IMappingResolver.cs" />
+    <Compile Include="Resolvers\MapperResolver\IPropertiesMapper.cs" />
+    <Compile Include="Resolvers\MapperResolver\MappingResolver.cs" />
+    <Compile Include="Resolvers\SelectsResolver\IParamSelectExpression.cs" />
+    <Compile Include="Resolvers\SelectsResolver\ISelectExpression.cs" />
+    <Compile Include="Resolvers\SelectsResolver\ISelectExpressionNonCache.cs" />
+    <Compile Include="Resolvers\SelectsResolver\ISelectResolver.cs" />
+    <Compile Include="Resolvers\SelectsResolver\SelectResolver.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cultures\Culture.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Culture.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="esolCrusador.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
