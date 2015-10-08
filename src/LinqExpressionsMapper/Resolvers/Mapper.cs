@@ -1,9 +1,9 @@
-﻿using System.Globalization;
+﻿using System;
 using System.Linq.Expressions;
 using LinqExpressionsMapper.Resolvers.MapperResolver;
 using LinqExpressionsMapper.Resolvers.SelectsResolver;
 
-namespace System
+namespace LinqExpressionsMapper
 {
     public static class Mapper
     {
