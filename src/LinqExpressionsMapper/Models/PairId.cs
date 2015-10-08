@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace LinqExpressionsMapper.Models
 {
-    public class PairId<TSourceId, TDestId> : IEqualityComparer<PairId<TSourceId, TDestId>>, IEquatable<PairId<TSourceId, TDestId>>
+    internal class PairId<TSourceId, TDestId> : IEqualityComparer<PairId<TSourceId, TDestId>>, IEquatable<PairId<TSourceId, TDestId>>
     {
         public PairId(TSourceId sourceId, TDestId destId)
         {
@@ -68,7 +66,7 @@ namespace LinqExpressionsMapper.Models
         }
     }
 
-    public class PairId : PairId<Guid, Guid>
+    internal class PairId : PairId<Guid, Guid>
     {
         private string _name;
 

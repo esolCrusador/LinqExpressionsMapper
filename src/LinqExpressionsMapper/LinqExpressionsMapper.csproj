@@ -42,12 +42,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cultures\Culture.cs">
@@ -77,19 +72,22 @@
     <Compile Include="Resolvers\Mapper.cs" />
     <Compile Include="Resolvers\MapperLinqExpressionsExtension.cs" />
     <Compile Include="Resolvers\MapperLinqSelectExtension.cs" />
-    <Compile Include="Resolvers\MapperResolver\IMappingResolver.cs" />
     <Compile Include="Resolvers\MapperResolver\IPropertiesMapper.cs" />
     <Compile Include="Resolvers\MapperResolver\MappingResolver.cs" />
-    <Compile Include="Resolvers\SelectsResolver\IParamSelectExpression.cs" />
-    <Compile Include="Resolvers\SelectsResolver\ISelectExpression.cs" />
-    <Compile Include="Resolvers\SelectsResolver\ISelectExpressionNonCache.cs" />
-    <Compile Include="Resolvers\SelectsResolver\ISelectResolver.cs" />
-    <Compile Include="Resolvers\SelectsResolver\SelectResolver.cs" />
+    <Compile Include="Resolvers\SelectsResolver\SelectResolvers.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SelectResolvers.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Cultures\Culture.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Culture.cs</LastGenOutput>
+    </Content>
+    <Content Include="Resolvers\SelectsResolver\SelectResolvers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SelectResolvers.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

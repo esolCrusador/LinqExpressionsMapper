@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("LinqExpressionsMapper")]
 [assembly: AssemblyDescription("Mapper for linq expressions")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("esolCrusador")]
+[assembly: AssemblyCompany("esolCrusador, Boris.Sotsky@gmail.com")]
 [assembly: AssemblyProduct("LinqExpressionsMapper")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
-[assembly: AssemblyTrademark("esolCrusador")]
+[assembly: AssemblyTrademark("esolCrusador, Boris.Sotsky@gmail.com")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0")]
-[assembly: AssemblyFileVersion("1.0.0")]
+[assembly: AssemblyVersion("2.0.0")]
+[assembly: AssemblyFileVersion("2.0.0")]

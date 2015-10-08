@@ -1,0 +1,317 @@
+﻿<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using LinqExpressionsMapper.Models;
+<# 
+	var maxParamsCount = 2;
+#>
+<# for (int i = 0; i <= maxParamsCount; i++)
+{
+#>
+
+namespace System.Linq.Expressions
+{
+    public interface ISelectExpression<TSource, TDest<#= Repeat(1, i, ", in TParam{0}", "") #>>
+    {
+        Expression<Func<TSource, TDest>> GetSelectExpression(<#= GenericArguments(1, i) #>);
+    }
+
+    public interface ISelectDynamicExpression<TSource, TDest<#= Repeat(1, i, ", in TParam{0}", "") #>>: ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>
+    {
+    }
+}
+
+namespace LinqExpressionsMapper.Resolvers.SelectsResolver
+{
+    public class SelectResolverWith<#= i #>Params
+    {
+        private readonly object _sync = new object();
+
+        private readonly Dictionary<PairId, Delegate> _dynamicExpressionFactories = new Dictionary<PairId, Delegate>();
+
+        private readonly Dictionary<PairId, Delegate> _expressionFactories = new Dictionary<PairId, Delegate>();
+<#	if(i == 0) {#>
+		private readonly Dictionary<PairId, LambdaExpression> _expressions = new Dictionary<PairId, LambdaExpression>();
+<# } else { #>
+		private readonly Dictionary<object, Dictionary<PairId, LambdaExpression>> _expressions = new Dictionary<object, Dictionary<PairId, LambdaExpression>>();
+<# } #>
+        public void Register<TSource, TDest<#= GenericParamsApp(1, i) #>>(ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>> resolver)
+        {
+            PairId id = PairId.GetId<TSource, TDest>();
+
+            var factory = (Func<<#= GenericParamsPre(1, i) #>Expression<Func<TSource, TDest>>>)resolver.GetSelectExpression;
+
+            lock (_sync)
+            {
+                if (_expressionFactories.ContainsKey(id))
+                {
+                    _expressionFactories[id] = factory;
+					TryRemoveExpressions<#= SurroundedGenericArguments(1, i) #>(id);
+                }
+                else
+                {
+                    _expressionFactories.Add(id, factory);
+                }
+            }
+        }
+
+        public void Register<TSource, TDest<#= GenericParamsApp(1, i) #>>(ISelectDynamicExpression<TSource, TDest<#= GenericParamsApp(1, i) #>> resolver)
+        {
+            PairId id = PairId.GetId<TSource, TDest>();
+
+            var factory = (Func<<#= GenericParamsPre(1, i) #>Expression<Func<TSource, TDest>>>)resolver.GetSelectExpression;
+
+            lock (_sync)
+            {
+                if (_dynamicExpressionFactories.ContainsKey(id))
+                {
+                    _dynamicExpressionFactories[id] = factory;
+                }
+                else
+                {
+                    _dynamicExpressionFactories.Add(id, factory);
+                }
+            }
+        }
+
+        public bool TryGetFromCache<TSource, TDest<#= GenericParamsApp(1, i) #>>(<#= GenericArgumentsPre(1, i) #>out Expression<Func<TSource, TDest>> expression)
+        {
+            return TryGetOrActivate(<#= ArgumentsPre(1, i) #>null, out expression);
+        }
+
+        public Expression<Func<TSource, TDest>> GetExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>(<#= GenericArguments(1, i) #>)
+            where TDest: ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>, new()
+        {
+            try
+            {
+                Expression<Func<TSource, TDest>> expression;
+                if (TryGetOrActivate(<#= ArgumentsPre(1, i) #>() => new TDest(), out expression))
+                {
+                    return expression;
+                }
+                else
+                {
+                    throw new NotImplementedException("Something went wrong.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotSupportedException(String.Format("Convert expression for {0} -> {1} does not exist.", typeof(TSource).FullName, typeof(TDest).FullName), ex);
+            }
+        }
+
+        public Expression<Func<TSource, TDest>> GetExternalExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>(<#= GenericArguments(1, i) #>)
+        {
+            try
+            {
+                Expression<Func<TSource, TDest>> expression;
+                if (TryGetOrActivate(<#= ArgumentsPre(1, i) #>() => (ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>) Activator.CreateInstance<TDest>(), out expression))
+                {
+                    return expression;
+                }
+                else
+                {
+                    throw new NotImplementedException("Something went wrong.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotSupportedException(String.Format("Convert expression for {0} -> {1} does not exist.", typeof(TSource).FullName, typeof(TDest).FullName), ex);
+            }
+        }
+
+        private bool TryGetOrActivate<TSource, TDest<#= GenericParamsApp(1, i) #>>(<#= GenericArgumentsPre(1, i) #>Func<ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>> activator, out Expression<Func<TSource, TDest>> expression)
+        {
+            PairId id = PairId.GetId<TSource, TDest>();
+
+            Dictionary<PairId, LambdaExpression> expressions = GetOrAddParamExpressionsDictionary(<#= ArgumentsPre(1, i) #>add: false);
+
+            LambdaExpression lambdaExpression;
+
+            if (expressions != null && expressions.TryGetValue(id, out lambdaExpression))
+            {
+                expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                return true;
+            }
+
+            lock (_sync)
+            {
+                expressions = expressions ?? GetOrAddParamExpressionsDictionary(<#= ArgumentsPre(1, i) #>add: true);
+
+                if (expressions.TryGetValue(id, out lambdaExpression))
+                {
+                    expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                    return true;
+                }
+
+
+                Delegate factoryDelegate;
+                Func<<#= GenericParamsPre(1, i) #>Expression<Func<TSource, TDest>>> factory;
+
+                if (_expressionFactories.TryGetValue(id, out factoryDelegate))
+                {
+                    factory = (Func<<#= GenericParamsPre(1, i) #>Expression<Func<TSource, TDest>>>)factoryDelegate;
+                    expression = factory(<#= Arguments(1, i) #>);
+                    expressions.Add(id, expression);
+
+                    TryRemoveFactory(id);
+
+                    return true;
+                }
+
+                if (_dynamicExpressionFactories.TryGetValue(id, out factoryDelegate))
+                {
+                    factory = (Func<<#= GenericParamsPre(1, i) #>Expression<Func<TSource, TDest>>>)factoryDelegate;
+                    expression = factory(<#= Arguments(1, i) #>);
+
+                    return true;
+                }
+
+                if (activator != null)
+                {
+                    ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>> selectResolver = activator();
+                    factory = selectResolver.GetSelectExpression;
+
+                    if (selectResolver is ISelectDynamicExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>)
+                    {
+                        _dynamicExpressionFactories.Add(id, factory);
+                        expression = factory(<#= Arguments(1, i) #>);
+
+                        return true;
+                    }
+                    else
+                    {
+                        _expressionFactories.Add(id, factory);
+                        expression = factory(<#= Arguments(1, i) #>);
+                        expressions.Add(id, expression);
+
+                        TryRemoveFactory(id);
+
+                        return true;
+                    }
+                }
+            }
+
+            expression = null;
+            return false;
+        }
+
+        private Dictionary<PairId, LambdaExpression> GetOrAddParamExpressionsDictionary<#= SurroundedGenericArguments(1, i) #>(<#= GenericArgumentsPre(1, i) #>bool add)
+        {
+<# if (i == 0) { #>
+            return _expressions;
+<# } else { #>
+            Dictionary<PairId, LambdaExpression> dictionary;
+            var key = new Tuple<#= SurroundedGenericArguments(1, i) #>(<#= Arguments(1, i) #>);
+
+            if (!_expressions.TryGetValue(key, out dictionary))
+            {
+                if (add)
+                {
+                    dictionary = new Dictionary<PairId, LambdaExpression>();
+                    _expressions.Add(key, dictionary);
+                }
+            }
+
+            return dictionary;
+<# } #>
+        }
+
+        private void TryRemoveFactory(PairId id)
+        {
+<# if (i == 0) { #>
+            if (_expressionFactories.ContainsKey(id))
+            {
+                _expressionFactories.Remove(id);
+            }
+<# } #>
+        }
+
+		private void TryRemoveExpressions<#= SurroundedGenericArguments(1, i) #>(PairId id)
+		{
+<# if(i == 0) { #>
+		    if (_expressions.ContainsKey(id))
+		    {
+		        _expressions.Remove(id);
+		    }
+<# } else { #>
+            foreach (var expressionsDictionary in _expressions.Where(kvp=>kvp.Key is Tuple<#= SurroundedGenericArguments(1, i) #>).Select(kvp=>kvp.Value))
+            {
+                if (expressionsDictionary.ContainsKey(id))
+                {
+                    expressionsDictionary.Remove(id);
+                }
+            }			
+<# } #>
+		}
+    }
+}
+<# } #>
+<#+ public string Repeat(int start, int end, string format, string separator) 
+{
+	return String.Join(separator, Enumerable.Range(start, end).Select(i => String.Format(format, i)));
+}
+
+public string GenericParams(int start, int end)
+{
+	return Repeat(start, end, "TParam{0}", ", ");
+}
+
+public string GenericParamsPre(int start, int end)
+{
+	return Repeat(start, end, "TParam{0}, ", "");
+}
+
+public string GenericParamsApp(int start, int end)
+{
+	return Repeat(start, end, ", TParam{0}", "");
+}
+
+public string GenericArguments(int start, int end)
+{
+	return Repeat(start, end, "TParam{0} param{0}", ", ");
+}
+
+public string GenericArgumentsPre(int start, int end)
+{
+	return Repeat(start, end, "TParam{0} param{0}, ", "");
+}
+
+public string GenericArgumentsApp(int start, int end)
+{
+	return Repeat(start, end, ", TParam{0} param{0}", "");
+}
+
+public string Arguments(int start, int end)
+{
+	return Repeat(start, end, "param{0}", ", ");
+}
+
+public string ArgumentsPre(int start, int end)
+{
+	return Repeat(start, end, "param{0}, ", "");
+}
+
+public string ArgumentsApp(int start, int end)
+{
+	return Repeat(start, end, ", param{0}", "");
+}
+
+public string SurroundedGenericArguments(int start, int end)
+{
+	if(end==0)
+	{
+		return string.Empty;
+	}
+	else
+	{
+		return "<" + Repeat(start, end, "TParam{0}", ", ") + ">";
+	}
+}
+#>

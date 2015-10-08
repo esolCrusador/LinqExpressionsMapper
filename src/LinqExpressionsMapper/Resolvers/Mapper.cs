@@ -1,19 +1,21 @@
 ﻿using System.Globalization;
 using System.Linq.Expressions;
-using GloryS.Common.Resolvers.SelectsResolver;
 using LinqExpressionsMapper.Resolvers.MapperResolver;
+using LinqExpressionsMapper.Resolvers.SelectsResolver;
 
 namespace System
 {
     public static class Mapper
     {
-        private static readonly ISelectResolver SelectResolver;
-        private static readonly IMappingResolver MappingResolver;
+        private static readonly SelectResolverWith0Params SelectResolver;
+        private static readonly SelectResolverWith1Params SelectResolverWith1Params;
+        private static readonly MappingResolver MappingResolver;
 
         static Mapper()
         {
-            SelectResolver = LinqExpressionsMapper.Resolvers.SelectsResolver.SelectResolver.Instance;
-            MappingResolver = LinqExpressionsMapper.Resolvers.MapperResolver.MappingResolver.Instance;
+            SelectResolver = new SelectResolverWith0Params();
+            SelectResolverWith1Params = new SelectResolverWith1Params();
+            MappingResolver = new MappingResolver();
         }
 
         #region Registration
@@ -23,14 +25,14 @@ namespace System
             SelectResolver.Register(selectExpression);
         }
 
-        public static void Register<TSource, TDest>(ISelectExpressionNonCache<TSource, TDest> selectExpression)
+        public static void Register<TSource, TDest>(ISelectDynamicExpression<TSource, TDest> selectDynamicExpression)
         {
-            SelectResolver.Register(selectExpression);
+            SelectResolver.Register(selectDynamicExpression);
         }
 
-        public static void Register<TSource, TDest>(ICultureSelectExpression<TSource, TDest> selectExpression)
+        public static void Register<TSource, TDest, TParam>(ISelectExpression<TSource, TDest, TParam> selectExpression)
         {
-            SelectResolver.Register(selectExpression);
+            SelectResolverWith1Params.Register(selectExpression);
         }
 
         public static void Register<TSource, TDest>(IPropertiesMapper<TSource, TDest> propertiesMapper)
@@ -47,9 +49,9 @@ namespace System
             return SelectResolver.GetExternalExpression<TSource, TDist>();
         }
 
-        public static Expression<Func<TSource, TDest>> GetExternalExpression<TSource, TDest>(Culture cultureId)
+        public static Expression<Func<TSource, TDest>> GetExternalExpression<TSource, TDest, TParam>(TParam param)
         {
-            return SelectResolver.GetExternalExpression<TSource, TDest>(cultureId);
+            return SelectResolverWith1Params.GetExternalExpression<TSource, TDest, TParam>(param);
         }
 
         public static Expression<Func<TSource, TDist>> GetExpression<TSource, TDist>() where TDist : ISelectExpression<TSource, TDist>, new()
@@ -57,9 +59,9 @@ namespace System
             return SelectResolver.GetExpression<TSource, TDist>();
         }
 
-        public static Expression<Func<TSource, TDest>> GetExpression<TSource, TDest>(Culture cultreId) where TDest : ICultureSelectExpression<TSource, TDest>, new()
+        public static Expression<Func<TSource, TDest>> GetExpression<TSource, TDest, TParam>(TParam param) where TDest : ISelectExpression<TSource, TDest, TParam>, new()
         {
-            return SelectResolver.GetExpression<TSource, TDest>(cultreId);
+            return SelectResolverWith1Params.GetExpression<TSource, TDest, TParam>(param);
         }
 
         #endregion

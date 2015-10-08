@@ -33,18 +33,18 @@ namespace System.Linq.Expressions
             Expression<Func<TSource, TSourceMember>> sourceMember,
             Expression<Func<TResult, TMember>> member,
             Culture cultureId)
-            where TMember : ICultureSelectExpression<TSourceMember, TMember>, new()
+            where TMember : ISelectExpression<TSourceMember, TMember, Culture>, new()
         {
-            return init.AddMemberInit(sourceMember, member, Mapper.GetExpression<TSourceMember, TMember>(cultureId));
+            return init.AddMemberInit(sourceMember, member, Mapper.GetExpression<TSourceMember, TMember, Culture>(cultureId));
         }
 
         public static Expression<Func<TSource, TResult>> ResolveMemberInit<TSource, TResult, TSourceMember, TMember>(this Expression<Func<TSource, TResult>> init,
             Expression<Func<TSource, IEnumerable<TSourceMember>>> sourceMember,
             Expression<Func<TResult, IEnumerable<TMember>>> member,
             Culture cultureId)
-            where TMember : ICultureSelectExpression<TSourceMember, TMember>, new()
+            where TMember : ISelectExpression<TSourceMember, TMember, Culture>, new()
         {
-            return init.AddMemberInit(sourceMember, member, Mapper.GetExpression<TSourceMember, TMember>(cultureId));
+            return init.AddMemberInit(sourceMember, member, Mapper.GetExpression<TSourceMember, TMember, Culture>(cultureId));
         }
 
         public static Expression<Func<TSource, TResult>> ResolveMemberInit<TSource, TResult, TSourceMember, TMember>(this Expression<Func<TSource, TResult>> init,
