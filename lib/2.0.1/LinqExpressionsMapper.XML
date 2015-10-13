@@ -1,0 +1,2883 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinqExpressionsMapper</name>
+    </assembly>
+    <members>
+        <member name="F:System.Globalization.Culture.AF">
+            <summary>
+            Afrikaans
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.AM">
+            <summary>
+            Amharic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.AR">
+            <summary>
+            Arabic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ARN">
+            <summary>
+            Mapudungun
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.AS">
+            <summary>
+            Assamese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.AZ">
+            <summary>
+            Azerbaijani
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.AZ_CYRL">
+            <summary>
+            Azerbaijani (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.AZ_LATN">
+            <summary>
+            Azerbaijani (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BA">
+            <summary>
+            Bashkir
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BE">
+            <summary>
+            Belarusian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BG">
+            <summary>
+            Bulgarian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BN">
+            <summary>
+            Bangla
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BO">
+            <summary>
+            Tibetan
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BR">
+            <summary>
+            Breton
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BS">
+            <summary>
+            Bosnian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BS_CYRL">
+            <summary>
+            Bosnian (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.BS_LATN">
+            <summary>
+            Bosnian (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.CA">
+            <summary>
+            Catalan
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.CHR">
+            <summary>
+            Cherokee
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.CHR_CHER">
+            <summary>
+            Cherokee (Cherokee)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.CO">
+            <summary>
+            Corsican
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.CS">
+            <summary>
+            Czech
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.CY">
+            <summary>
+            Welsh
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.DA">
+            <summary>
+            Danish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.DE">
+            <summary>
+            German
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.DSB">
+            <summary>
+            Lower Sorbian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.DV">
+            <summary>
+            Divehi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.EL">
+            <summary>
+            Greek
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.EN">
+            <summary>
+            English
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ES">
+            <summary>
+            Spanish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ET">
+            <summary>
+            Estonian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.EU">
+            <summary>
+            Basque
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.FA">
+            <summary>
+            Persian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.FF">
+            <summary>
+            Fulah
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.FF_LATN">
+            <summary>
+            Fulah (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.FI">
+            <summary>
+            Finnish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.FIL">
+            <summary>
+            Filipino
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.FO">
+            <summary>
+            Faroese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.FR">
+            <summary>
+            French
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.FY">
+            <summary>
+            Frisian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.GA">
+            <summary>
+            Irish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.GD">
+            <summary>
+            Scottish Gaelic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.GL">
+            <summary>
+            Galician
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.GN">
+            <summary>
+            Guarani
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.GSW">
+            <summary>
+            Alsatian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.GU">
+            <summary>
+            Gujarati
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HA">
+            <summary>
+            Hausa
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HA_LATN">
+            <summary>
+            Hausa (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HAW">
+            <summary>
+            Hawaiian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HE">
+            <summary>
+            Hebrew
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HI">
+            <summary>
+            Hindi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HR">
+            <summary>
+            Croatian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HSB">
+            <summary>
+            Upper Sorbian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HU">
+            <summary>
+            Hungarian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.HY">
+            <summary>
+            Armenian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ID">
+            <summary>
+            Indonesian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.IG">
+            <summary>
+            Igbo
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.II">
+            <summary>
+            Yi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.IS">
+            <summary>
+            Icelandic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.IT">
+            <summary>
+            Italian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.IU">
+            <summary>
+            Inuktitut
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.IU_CANS">
+            <summary>
+            Inuktitut (Syllabics)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.IU_LATN">
+            <summary>
+            Inuktitut (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.JA">
+            <summary>
+            Japanese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.JV">
+            <summary>
+            Basa Jawa
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KA">
+            <summary>
+            Georgian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KK">
+            <summary>
+            Kazakh
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KL">
+            <summary>
+            Greenlandic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KM">
+            <summary>
+            Khmer
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KN">
+            <summary>
+            Kannada
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KO">
+            <summary>
+            Korean
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KOK">
+            <summary>
+            Konkani
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KU">
+            <summary>
+            Central Kurdish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KU_ARAB">
+            <summary>
+            Central Kurdish (Arabic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.KY">
+            <summary>
+            Kyrgyz
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.LB">
+            <summary>
+            Luxembourgish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.LO">
+            <summary>
+            Lao
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.LT">
+            <summary>
+            Lithuanian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.LV">
+            <summary>
+            Latvian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MI">
+            <summary>
+            Maori
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MK">
+            <summary>
+            Macedonian (FYROM)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ML">
+            <summary>
+            Malayalam
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MN">
+            <summary>
+            Mongolian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MN_CYRL">
+            <summary>
+            Mongolian (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MN_MONG">
+            <summary>
+            Mongolian (Traditional Mongolian)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MOH">
+            <summary>
+            Mohawk
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MR">
+            <summary>
+            Marathi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MS">
+            <summary>
+            Malay
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MT">
+            <summary>
+            Maltese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.MY">
+            <summary>
+            Burmese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.NB">
+            <summary>
+            Norwegian (Bokmål)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.NE">
+            <summary>
+            Nepali
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.NL">
+            <summary>
+            Dutch
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.NN">
+            <summary>
+            Norwegian (Nynorsk)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.NO">
+            <summary>
+            Norwegian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.NSO">
+            <summary>
+            Sesotho sa Leboa
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.OC">
+            <summary>
+            Occitan
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.OM">
+            <summary>
+            Oromo
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.OR">
+            <summary>
+            Odia
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.PA">
+            <summary>
+            Punjabi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.PA_ARAB">
+            <summary>
+            Punjabi (Arabic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.PL">
+            <summary>
+            Polish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.PRS">
+            <summary>
+            Dari
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.PS">
+            <summary>
+            Pashto
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.PT">
+            <summary>
+            Portuguese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.QUT">
+            <summary>
+            K'iche
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.QUZ">
+            <summary>
+            Quechua
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.RM">
+            <summary>
+            Romansh
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.RO">
+            <summary>
+            Romanian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.RU">
+            <summary>
+            Russian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.RW">
+            <summary>
+            Kinyarwanda
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SA">
+            <summary>
+            Sanskrit
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SAH">
+            <summary>
+            Sakha
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SD">
+            <summary>
+            Sindhi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SD_ARAB">
+            <summary>
+            Sindhi (Arabic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SE">
+            <summary>
+            Sami (Northern)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SI">
+            <summary>
+            Sinhala
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SK">
+            <summary>
+            Slovak
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SL">
+            <summary>
+            Slovenian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SMA">
+            <summary>
+            Sami (Southern)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SMJ">
+            <summary>
+            Sami (Lule)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SMN">
+            <summary>
+            Sami (Inari)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SMS">
+            <summary>
+            Sami (Skolt)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SO">
+            <summary>
+            Somali
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SQ">
+            <summary>
+            Albanian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SR">
+            <summary>
+            Serbian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SR_CYRL">
+            <summary>
+            Serbian (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SR_LATN">
+            <summary>
+            Serbian (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ST">
+            <summary>
+            Southern Sotho
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SV">
+            <summary>
+            Swedish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SW">
+            <summary>
+            Kiswahili
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.SYR">
+            <summary>
+            Syriac
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TA">
+            <summary>
+            Tamil
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TE">
+            <summary>
+            Telugu
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TG">
+            <summary>
+            Tajik
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TG_CYRL">
+            <summary>
+            Tajik (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TH">
+            <summary>
+            Thai
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TI">
+            <summary>
+            Tigrinya
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TK">
+            <summary>
+            Turkmen
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TN">
+            <summary>
+            Setswana
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TR">
+            <summary>
+            Turkish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TS">
+            <summary>
+            Tsonga
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TT">
+            <summary>
+            Tatar
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TZM">
+            <summary>
+            Tamazight
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TZM_LATN">
+            <summary>
+            Tamazight (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.TZM_TFNG">
+            <summary>
+            Tamazight (Tifinagh)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.UG">
+            <summary>
+            Uyghur
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.UK">
+            <summary>
+            Ukrainian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.UR">
+            <summary>
+            Urdu
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.UZ">
+            <summary>
+            Uzbek
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.UZ_CYRL">
+            <summary>
+            Uzbek (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.UZ_LATN">
+            <summary>
+            Uzbek (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.VI">
+            <summary>
+            Vietnamese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.WO">
+            <summary>
+            Wolof
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.XH">
+            <summary>
+            isiXhosa
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.YO">
+            <summary>
+            Yoruba
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ZH">
+            <summary>
+            Chinese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ZH_CHS">
+            <summary>
+            Chinese (Simplified) Legacy
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ZH_CHT">
+            <summary>
+            Chinese (Traditional) Legacy
+            </summary>
+        </member>
+        <member name="F:System.Globalization.Culture.ZU">
+            <summary>
+            isiZulu
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AF">
+            <summary>
+            Afrikaans
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AF_ZA">
+            <summary>
+            Afrikaans (South Africa)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AM">
+            <summary>
+            Amharic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AM_ET">
+            <summary>
+            Amharic (Ethiopia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR">
+            <summary>
+            Arabic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_AE">
+            <summary>
+            Arabic (U.A.E.)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_BH">
+            <summary>
+            Arabic (Bahrain)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_DZ">
+            <summary>
+            Arabic (Algeria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_EG">
+            <summary>
+            Arabic (Egypt)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_IQ">
+            <summary>
+            Arabic (Iraq)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_JO">
+            <summary>
+            Arabic (Jordan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_KW">
+            <summary>
+            Arabic (Kuwait)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_LB">
+            <summary>
+            Arabic (Lebanon)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_LY">
+            <summary>
+            Arabic (Libya)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_MA">
+            <summary>
+            Arabic (Morocco)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_OM">
+            <summary>
+            Arabic (Oman)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_QA">
+            <summary>
+            Arabic (Qatar)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_SA">
+            <summary>
+            Arabic (Saudi Arabia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_SY">
+            <summary>
+            Arabic (Syria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_TN">
+            <summary>
+            Arabic (Tunisia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AR_YE">
+            <summary>
+            Arabic (Yemen)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ARN">
+            <summary>
+            Mapudungun
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ARN_CL">
+            <summary>
+            Mapudungun (Chile)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AS">
+            <summary>
+            Assamese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AS_IN">
+            <summary>
+            Assamese (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AZ">
+            <summary>
+            Azerbaijani
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AZ_CYRL">
+            <summary>
+            Azerbaijani (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AZ_CYRL_AZ">
+            <summary>
+            Azerbaijani (Cyrillic, Azerbaijan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AZ_LATN">
+            <summary>
+            Azerbaijani (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.AZ_LATN_AZ">
+            <summary>
+            Azerbaijani (Latin, Azerbaijan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BA">
+            <summary>
+            Bashkir
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BA_RU">
+            <summary>
+            Bashkir (Russia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BE">
+            <summary>
+            Belarusian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BE_BY">
+            <summary>
+            Belarusian (Belarus)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BG">
+            <summary>
+            Bulgarian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BG_BG">
+            <summary>
+            Bulgarian (Bulgaria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BN">
+            <summary>
+            Bangla
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BN_BD">
+            <summary>
+            Bangla (Bangladesh)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BN_IN">
+            <summary>
+            Bangla (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BO">
+            <summary>
+            Tibetan
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BO_CN">
+            <summary>
+            Tibetan (PRC)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BR">
+            <summary>
+            Breton
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BR_FR">
+            <summary>
+            Breton (France)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BS">
+            <summary>
+            Bosnian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BS_CYRL">
+            <summary>
+            Bosnian (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BS_CYRL_BA">
+            <summary>
+            Bosnian (Cyrillic, Bosnia and Herzegovina)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BS_LATN">
+            <summary>
+            Bosnian (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.BS_LATN_BA">
+            <summary>
+            Bosnian (Latin, Bosnia and Herzegovina)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CA">
+            <summary>
+            Catalan
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CA_ES">
+            <summary>
+            Catalan (Catalan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CA_ES_VALENCIA">
+            <summary>
+            Valencian (Spain)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CHR">
+            <summary>
+            Cherokee
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CHR_CHER">
+            <summary>
+            Cherokee (Cherokee)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CHR_CHER_US">
+            <summary>
+            Cherokee (Cherokee)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CO">
+            <summary>
+            Corsican
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CO_FR">
+            <summary>
+            Corsican (France)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CS">
+            <summary>
+            Czech
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CS_CZ">
+            <summary>
+            Czech (Czech Republic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CY">
+            <summary>
+            Welsh
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.CY_GB">
+            <summary>
+            Welsh (United Kingdom)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DA">
+            <summary>
+            Danish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DA_DK">
+            <summary>
+            Danish (Denmark)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DE">
+            <summary>
+            German
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DE_AT">
+            <summary>
+            German (Austria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DE_CH">
+            <summary>
+            German (Switzerland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DE_DE">
+            <summary>
+            German (Germany)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DE_LI">
+            <summary>
+            German (Liechtenstein)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DE_LU">
+            <summary>
+            German (Luxembourg)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DSB">
+            <summary>
+            Lower Sorbian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DSB_DE">
+            <summary>
+            Lower Sorbian (Germany)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DV">
+            <summary>
+            Divehi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.DV_MV">
+            <summary>
+            Divehi (Maldives)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EL">
+            <summary>
+            Greek
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EL_GR">
+            <summary>
+            Greek (Greece)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN">
+            <summary>
+            English
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_029">
+            <summary>
+            English (Caribbean)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_AU">
+            <summary>
+            English (Australia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_BZ">
+            <summary>
+            English (Belize)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_CA">
+            <summary>
+            English (Canada)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_GB">
+            <summary>
+            English (United Kingdom)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_HK">
+            <summary>
+            English (Hong Kong SAR)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_IE">
+            <summary>
+            English (Ireland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_IN">
+            <summary>
+            English (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_JM">
+            <summary>
+            English (Jamaica)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_MY">
+            <summary>
+            English (Malaysia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_NZ">
+            <summary>
+            English (New Zealand)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_PH">
+            <summary>
+            English (Republic of the Philippines)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_SG">
+            <summary>
+            English (Singapore)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_TT">
+            <summary>
+            English (Trinidad and Tobago)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_US">
+            <summary>
+            English (United States)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_ZA">
+            <summary>
+            English (South Africa)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EN_ZW">
+            <summary>
+            English (Zimbabwe)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES">
+            <summary>
+            Spanish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_419">
+            <summary>
+            Spanish (Latin America)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_AR">
+            <summary>
+            Spanish (Argentina)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_BO">
+            <summary>
+            Spanish (Bolivia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_CL">
+            <summary>
+            Spanish (Chile)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_CO">
+            <summary>
+            Spanish (Colombia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_CR">
+            <summary>
+            Spanish (Costa Rica)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_DO">
+            <summary>
+            Spanish (Dominican Republic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_EC">
+            <summary>
+            Spanish (Ecuador)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_ES">
+            <summary>
+            Spanish (Spain)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_GT">
+            <summary>
+            Spanish (Guatemala)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_HN">
+            <summary>
+            Spanish (Honduras)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_MX">
+            <summary>
+            Spanish (Mexico)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_NI">
+            <summary>
+            Spanish (Nicaragua)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_PA">
+            <summary>
+            Spanish (Panama)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_PE">
+            <summary>
+            Spanish (Peru)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_PR">
+            <summary>
+            Spanish (Puerto Rico)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_PY">
+            <summary>
+            Spanish (Paraguay)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_SV">
+            <summary>
+            Spanish (El Salvador)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_US">
+            <summary>
+            Spanish (United States)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_UY">
+            <summary>
+            Spanish (Uruguay)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ES_VE">
+            <summary>
+            Spanish (Bolivarian Republic of Venezuela)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ET">
+            <summary>
+            Estonian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ET_EE">
+            <summary>
+            Estonian (Estonia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EU">
+            <summary>
+            Basque
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.EU_ES">
+            <summary>
+            Basque (Basque)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FA">
+            <summary>
+            Persian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FA_IR">
+            <summary>
+            Persian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FF">
+            <summary>
+            Fulah
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FF_LATN">
+            <summary>
+            Fulah (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FF_LATN_SN">
+            <summary>
+            Fulah (Latin, Senegal)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FI">
+            <summary>
+            Finnish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FI_FI">
+            <summary>
+            Finnish (Finland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FIL">
+            <summary>
+            Filipino
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FIL_PH">
+            <summary>
+            Filipino (Philippines)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FO">
+            <summary>
+            Faroese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FO_FO">
+            <summary>
+            Faroese (Faroe Islands)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR">
+            <summary>
+            French
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_BE">
+            <summary>
+            French (Belgium)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_CA">
+            <summary>
+            French (Canada)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_CD">
+            <summary>
+            French (Congo DRC)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_CH">
+            <summary>
+            French (Switzerland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_CI">
+            <summary>
+            French (Côte d’Ivoire)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_CM">
+            <summary>
+            French (Cameroon)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_FR">
+            <summary>
+            French (France)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_HT">
+            <summary>
+            French (Haiti)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_LU">
+            <summary>
+            French (Luxembourg)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_MA">
+            <summary>
+            French (Morocco)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_MC">
+            <summary>
+            French (Monaco)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_ML">
+            <summary>
+            French (Mali)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_RE">
+            <summary>
+            French (Reunion)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FR_SN">
+            <summary>
+            French (Senegal)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FY">
+            <summary>
+            Frisian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.FY_NL">
+            <summary>
+            Frisian (Netherlands)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GA">
+            <summary>
+            Irish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GA_IE">
+            <summary>
+            Irish (Ireland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GD">
+            <summary>
+            Scottish Gaelic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GD_GB">
+            <summary>
+            Scottish Gaelic (United Kingdom)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GL">
+            <summary>
+            Galician
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GL_ES">
+            <summary>
+            Galician (Galician)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GN">
+            <summary>
+            Guarani
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GN_PY">
+            <summary>
+            Guarani (Paraguay)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GSW">
+            <summary>
+            Alsatian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GSW_FR">
+            <summary>
+            Alsatian (France)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GU">
+            <summary>
+            Gujarati
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.GU_IN">
+            <summary>
+            Gujarati (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HA">
+            <summary>
+            Hausa
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HA_LATN">
+            <summary>
+            Hausa (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HA_LATN_NG">
+            <summary>
+            Hausa (Latin, Nigeria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HAW">
+            <summary>
+            Hawaiian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HAW_US">
+            <summary>
+            Hawaiian (United States)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HE">
+            <summary>
+            Hebrew
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HE_IL">
+            <summary>
+            Hebrew (Israel)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HI">
+            <summary>
+            Hindi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HI_IN">
+            <summary>
+            Hindi (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HR">
+            <summary>
+            Croatian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HR_BA">
+            <summary>
+            Croatian (Latin, Bosnia and Herzegovina)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HR_HR">
+            <summary>
+            Croatian (Croatia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HSB">
+            <summary>
+            Upper Sorbian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HSB_DE">
+            <summary>
+            Upper Sorbian (Germany)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HU">
+            <summary>
+            Hungarian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HU_HU">
+            <summary>
+            Hungarian (Hungary)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HY">
+            <summary>
+            Armenian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.HY_AM">
+            <summary>
+            Armenian (Armenia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ID">
+            <summary>
+            Indonesian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ID_ID">
+            <summary>
+            Indonesian (Indonesia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IG">
+            <summary>
+            Igbo
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IG_NG">
+            <summary>
+            Igbo (Nigeria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.II">
+            <summary>
+            Yi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.II_CN">
+            <summary>
+            Yi (PRC)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IS">
+            <summary>
+            Icelandic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IS_IS">
+            <summary>
+            Icelandic (Iceland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IT">
+            <summary>
+            Italian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IT_CH">
+            <summary>
+            Italian (Switzerland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IT_IT">
+            <summary>
+            Italian (Italy)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IU">
+            <summary>
+            Inuktitut
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IU_CANS">
+            <summary>
+            Inuktitut (Syllabics)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IU_CANS_CA">
+            <summary>
+            Inuktitut (Syllabics, Canada)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IU_LATN">
+            <summary>
+            Inuktitut (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.IU_LATN_CA">
+            <summary>
+            Inuktitut (Latin, Canada)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.JA">
+            <summary>
+            Japanese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.JA_JP">
+            <summary>
+            Japanese (Japan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.JV">
+            <summary>
+            Basa Jawa
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KA">
+            <summary>
+            Georgian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KA_GE">
+            <summary>
+            Georgian (Georgia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KK">
+            <summary>
+            Kazakh
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KK_KZ">
+            <summary>
+            Kazakh (Kazakhstan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KL">
+            <summary>
+            Greenlandic
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KL_GL">
+            <summary>
+            Greenlandic (Greenland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KM">
+            <summary>
+            Khmer
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KM_KH">
+            <summary>
+            Khmer (Cambodia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KN">
+            <summary>
+            Kannada
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KN_IN">
+            <summary>
+            Kannada (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KO">
+            <summary>
+            Korean
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KO_KR">
+            <summary>
+            Korean (Korea)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KOK">
+            <summary>
+            Konkani
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KOK_IN">
+            <summary>
+            Konkani (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KU">
+            <summary>
+            Central Kurdish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KU_ARAB">
+            <summary>
+            Central Kurdish (Arabic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KU_ARAB_IQ">
+            <summary>
+            Central Kurdish (Iraq)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KY">
+            <summary>
+            Kyrgyz
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.KY_KG">
+            <summary>
+            Kyrgyz (Kyrgyzstan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.LB">
+            <summary>
+            Luxembourgish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.LB_LU">
+            <summary>
+            Luxembourgish (Luxembourg)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.LO">
+            <summary>
+            Lao
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.LO_LA">
+            <summary>
+            Lao (Lao P.D.R.)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.LT">
+            <summary>
+            Lithuanian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.LT_LT">
+            <summary>
+            Lithuanian (Lithuania)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.LV">
+            <summary>
+            Latvian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.LV_LV">
+            <summary>
+            Latvian (Latvia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MI">
+            <summary>
+            Maori
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MI_NZ">
+            <summary>
+            Maori (New Zealand)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MK">
+            <summary>
+            Macedonian (FYROM)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MK_MK">
+            <summary>
+            Macedonian (Former Yugoslav Republic of Macedonia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ML">
+            <summary>
+            Malayalam
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ML_IN">
+            <summary>
+            Malayalam (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MN">
+            <summary>
+            Mongolian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MN_CYRL">
+            <summary>
+            Mongolian (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MN_MN">
+            <summary>
+            Mongolian (Cyrillic, Mongolia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MN_MONG">
+            <summary>
+            Mongolian (Traditional Mongolian)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MN_MONG_CN">
+            <summary>
+            Mongolian (Traditional Mongolian, PRC)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MN_MONG_MN">
+            <summary>
+            Mongolian (Traditional Mongolian, Mongolia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MOH">
+            <summary>
+            Mohawk
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MOH_CA">
+            <summary>
+            Mohawk (Mohawk)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MR">
+            <summary>
+            Marathi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MR_IN">
+            <summary>
+            Marathi (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MS">
+            <summary>
+            Malay
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MS_BN">
+            <summary>
+            Malay (Brunei Darussalam)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MS_MY">
+            <summary>
+            Malay (Malaysia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MT">
+            <summary>
+            Maltese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MT_MT">
+            <summary>
+            Maltese (Malta)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MY">
+            <summary>
+            Burmese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.MY_MM">
+            <summary>
+            Burmese (Myanmar)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NB">
+            <summary>
+            Norwegian (Bokmål)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NB_NO">
+            <summary>
+            Norwegian, Bokmål (Norway)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NE">
+            <summary>
+            Nepali
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NE_IN">
+            <summary>
+            Nepali (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NE_NP">
+            <summary>
+            Nepali (Nepal)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NL">
+            <summary>
+            Dutch
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NL_BE">
+            <summary>
+            Dutch (Belgium)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NL_NL">
+            <summary>
+            Dutch (Netherlands)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NN">
+            <summary>
+            Norwegian (Nynorsk)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NN_NO">
+            <summary>
+            Norwegian, Nynorsk (Norway)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NO">
+            <summary>
+            Norwegian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NSO">
+            <summary>
+            Sesotho sa Leboa
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.NSO_ZA">
+            <summary>
+            Sesotho sa Leboa (South Africa)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.OC">
+            <summary>
+            Occitan
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.OC_FR">
+            <summary>
+            Occitan (France)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.OM">
+            <summary>
+            Oromo
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.OM_ET">
+            <summary>
+            Oromo (Ethiopia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.OR">
+            <summary>
+            Odia
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.OR_IN">
+            <summary>
+            Odia (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PA">
+            <summary>
+            Punjabi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PA_ARAB">
+            <summary>
+            Punjabi (Arabic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PA_ARAB_PK">
+            <summary>
+            Punjabi (Islamic Republic of Pakistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PA_IN">
+            <summary>
+            Punjabi (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PL">
+            <summary>
+            Polish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PL_PL">
+            <summary>
+            Polish (Poland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PRS">
+            <summary>
+            Dari
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PRS_AF">
+            <summary>
+            Dari (Afghanistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PS">
+            <summary>
+            Pashto
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PS_AF">
+            <summary>
+            Pashto (Afghanistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PT">
+            <summary>
+            Portuguese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PT_BR">
+            <summary>
+            Portuguese (Brazil)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.PT_PT">
+            <summary>
+            Portuguese (Portugal)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.QUT">
+            <summary>
+            K'iche
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.QUT_GT">
+            <summary>
+            K'iche (Guatemala)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.QUZ">
+            <summary>
+            Quechua
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.QUZ_BO">
+            <summary>
+            Quechua (Bolivia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.QUZ_EC">
+            <summary>
+            Quechua (Ecuador)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.QUZ_PE">
+            <summary>
+            Quechua (Peru)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RM">
+            <summary>
+            Romansh
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RM_CH">
+            <summary>
+            Romansh (Switzerland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RO">
+            <summary>
+            Romanian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RO_MD">
+            <summary>
+            Romanian (Moldova)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RO_RO">
+            <summary>
+            Romanian (Romania)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RU">
+            <summary>
+            Russian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RU_RU">
+            <summary>
+            Russian (Russia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RW">
+            <summary>
+            Kinyarwanda
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.RW_RW">
+            <summary>
+            Kinyarwanda (Rwanda)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SA">
+            <summary>
+            Sanskrit
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SA_IN">
+            <summary>
+            Sanskrit (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SAH">
+            <summary>
+            Sakha
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SAH_RU">
+            <summary>
+            Sakha (Russia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SD">
+            <summary>
+            Sindhi
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SD_ARAB">
+            <summary>
+            Sindhi (Arabic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SD_ARAB_PK">
+            <summary>
+            Sindhi (Islamic Republic of Pakistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SE">
+            <summary>
+            Sami (Northern)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SE_FI">
+            <summary>
+            Sami, Northern (Finland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SE_NO">
+            <summary>
+            Sami, Northern (Norway)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SE_SE">
+            <summary>
+            Sami, Northern (Sweden)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SI">
+            <summary>
+            Sinhala
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SI_LK">
+            <summary>
+            Sinhala (Sri Lanka)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SK">
+            <summary>
+            Slovak
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SK_SK">
+            <summary>
+            Slovak (Slovakia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SL">
+            <summary>
+            Slovenian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SL_SI">
+            <summary>
+            Slovenian (Slovenia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMA">
+            <summary>
+            Sami (Southern)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMA_NO">
+            <summary>
+            Sami, Southern (Norway)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMA_SE">
+            <summary>
+            Sami, Southern (Sweden)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMJ">
+            <summary>
+            Sami (Lule)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMJ_NO">
+            <summary>
+            Sami, Lule (Norway)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMJ_SE">
+            <summary>
+            Sami, Lule (Sweden)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMN">
+            <summary>
+            Sami (Inari)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMN_FI">
+            <summary>
+            Sami, Inari (Finland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMS">
+            <summary>
+            Sami (Skolt)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SMS_FI">
+            <summary>
+            Sami, Skolt (Finland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SO">
+            <summary>
+            Somali
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SO_SO">
+            <summary>
+            Somali (Somalia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SQ">
+            <summary>
+            Albanian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SQ_AL">
+            <summary>
+            Albanian (Albania)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR">
+            <summary>
+            Serbian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_CYRL">
+            <summary>
+            Serbian (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_CYRL_BA">
+            <summary>
+            Serbian (Cyrillic, Bosnia and Herzegovina)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_CYRL_CS">
+            <summary>
+            Serbian (Cyrillic, Serbia and Montenegro (Former))
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_CYRL_ME">
+            <summary>
+            Serbian (Cyrillic, Montenegro)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_CYRL_RS">
+            <summary>
+            Serbian (Cyrillic, Serbia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_LATN">
+            <summary>
+            Serbian (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_LATN_BA">
+            <summary>
+            Serbian (Latin, Bosnia and Herzegovina)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_LATN_CS">
+            <summary>
+            Serbian (Latin, Serbia and Montenegro (Former))
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_LATN_ME">
+            <summary>
+            Serbian (Latin, Montenegro)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SR_LATN_RS">
+            <summary>
+            Serbian (Latin, Serbia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ST">
+            <summary>
+            Southern Sotho
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ST_ZA">
+            <summary>
+            Southern Sotho (South Africa)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SV">
+            <summary>
+            Swedish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SV_FI">
+            <summary>
+            Swedish (Finland)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SV_SE">
+            <summary>
+            Swedish (Sweden)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SW">
+            <summary>
+            Kiswahili
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SW_KE">
+            <summary>
+            Kiswahili (Kenya)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SYR">
+            <summary>
+            Syriac
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.SYR_SY">
+            <summary>
+            Syriac (Syria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TA">
+            <summary>
+            Tamil
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TA_IN">
+            <summary>
+            Tamil (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TA_LK">
+            <summary>
+            Tamil (Sri Lanka)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TE">
+            <summary>
+            Telugu
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TE_IN">
+            <summary>
+            Telugu (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TG">
+            <summary>
+            Tajik
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TG_CYRL">
+            <summary>
+            Tajik (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TG_CYRL_TJ">
+            <summary>
+            Tajik (Cyrillic, Tajikistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TH">
+            <summary>
+            Thai
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TH_TH">
+            <summary>
+            Thai (Thailand)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TI">
+            <summary>
+            Tigrinya
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TI_ER">
+            <summary>
+            Tigrinya (Eritrea)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TI_ET">
+            <summary>
+            Tigrinya (Ethiopia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TK">
+            <summary>
+            Turkmen
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TK_TM">
+            <summary>
+            Turkmen (Turkmenistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TN">
+            <summary>
+            Setswana
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TN_BW">
+            <summary>
+            Setswana (Botswana)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TN_ZA">
+            <summary>
+            Setswana (South Africa)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TR">
+            <summary>
+            Turkish
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TR_TR">
+            <summary>
+            Turkish (Turkey)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TS">
+            <summary>
+            Tsonga
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TS_ZA">
+            <summary>
+            Tsonga (South Africa)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TT">
+            <summary>
+            Tatar
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TT_RU">
+            <summary>
+            Tatar (Russia)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TZM">
+            <summary>
+            Tamazight
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TZM_LATN">
+            <summary>
+            Tamazight (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TZM_LATN_DZ">
+            <summary>
+            Tamazight (Latin, Algeria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TZM_TFNG">
+            <summary>
+            Tamazight (Tifinagh)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.TZM_TFNG_MA">
+            <summary>
+            Central Atlas Tamazight (Tifinagh, Morocco)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UG">
+            <summary>
+            Uyghur
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UG_CN">
+            <summary>
+            Uyghur (PRC)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UK">
+            <summary>
+            Ukrainian
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UK_UA">
+            <summary>
+            Ukrainian (Ukraine)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UR">
+            <summary>
+            Urdu
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UR_IN">
+            <summary>
+            Urdu (India)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UR_PK">
+            <summary>
+            Urdu (Islamic Republic of Pakistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UZ">
+            <summary>
+            Uzbek
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UZ_CYRL">
+            <summary>
+            Uzbek (Cyrillic)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UZ_CYRL_UZ">
+            <summary>
+            Uzbek (Cyrillic, Uzbekistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UZ_LATN">
+            <summary>
+            Uzbek (Latin)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.UZ_LATN_UZ">
+            <summary>
+            Uzbek (Latin, Uzbekistan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.VI">
+            <summary>
+            Vietnamese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.VI_VN">
+            <summary>
+            Vietnamese (Vietnam)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.WO">
+            <summary>
+            Wolof
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.WO_SN">
+            <summary>
+            Wolof (Senegal)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.XH">
+            <summary>
+            isiXhosa
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.XH_ZA">
+            <summary>
+            isiXhosa (South Africa)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.YO">
+            <summary>
+            Yoruba
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.YO_NG">
+            <summary>
+            Yoruba (Nigeria)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZH">
+            <summary>
+            Chinese
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZH_CN">
+            <summary>
+            Chinese (Simplified, PRC)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZH_CHS">
+            <summary>
+            Chinese (Simplified) Legacy
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZH_CHT">
+            <summary>
+            Chinese (Traditional) Legacy
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZH_HK">
+            <summary>
+            Chinese (Traditional, Hong Kong S.A.R.)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZH_MO">
+            <summary>
+            Chinese (Traditional, Macao S.A.R.)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZH_SG">
+            <summary>
+            Chinese (Simplified, Singapore)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZH_TW">
+            <summary>
+            Chinese (Traditional, Taiwan)
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZU">
+            <summary>
+            isiZulu
+            </summary>
+        </member>
+        <member name="F:System.Globalization.SpecificCulture.ZU_ZA">
+            <summary>
+            isiZulu (South Africa)
+            </summary>
+        </member>
+        <member name="M:System.Linq.Expressions.ClassBehaviourExpressionExtensions.InheritInit``4(System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``2,``3}})">
+            <summary>
+            Combines two Projection expressions into one. Projection of child class is extended with Projection of entity (base entity) on base class. Projection of members initialized in baseInit expression and not not initialized in init expression will be copied.
+            </summary>
+            <typeparam name="TSource">Source Entity type.</typeparam>
+            <typeparam name="TResult">Result projection type.</typeparam>
+            <typeparam name="TBaseSource">Base Source Entity type.</typeparam>
+            <typeparam name="TBaseResult">Base Result projection type.</typeparam>
+            <param name="init">Child projection expression.</param>
+            <param name="baseInit">Base projection expression.</param>
+            <returns>Extended Projection expression.</returns>
+        </member>
+        <member name="M:System.Linq.Expressions.ClassBehaviourExpressionExtensions.InheritInit``4(System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``0,``2}},System.Linq.Expressions.Expression{System.Func{``2,``3}})">
+            <summary>
+            Combines two Projection expressions into one in case when result Projection is build from two entity types. Target projection expression is extended with projection of entityMember to baseClass. Projection members initialized in baseInit expression but not initialized in init expression will be copied.
+            </summary>
+            <typeparam name="TSource">Source Entity type.</typeparam>
+            <typeparam name="TResult">Result projection type.</typeparam>
+            <typeparam name="TBaseSource">Base Entity type.</typeparam>
+            <typeparam name="TBaseResult">Base Result projection type.</typeparam>
+            <param name="init">Child projection expression.</param>
+            <param name="entityMember">Base entity member memberExpression.</param>
+            <param name="baseInit">Base init expression.</param>
+            <returns>Extended Projection expression.</returns>
+        </member>
+        <member name="M:System.Linq.Expressions.ClassBehaviourExpressionExtensions.AddMemberInit``4(System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``0,``2}},System.Linq.Expressions.Expression{System.Func{``1,``3}},System.Linq.Expressions.Expression{System.Func{``2,``3}})">
+            <summary>
+            Adds Target member initialization from sourceMember using memberInit projection expression.
+            </summary>
+            <typeparam name="TSource">Source Entity type.</typeparam>
+            <typeparam name="TResult">Result projection type.</typeparam>
+            <typeparam name="TSourceMember">Source member type.</typeparam>
+            <typeparam name="TMember">Member type.</typeparam>
+            <param name="init">Projection expression.</param>
+            <param name="sourceMember">Source member memberExpression.</param>
+            <param name="member">Target member memberExpression.</param>
+            <param name="memberInit">Source member to Target member projection expression.</param>
+            <returns>Projection expression with added Target member initialization.</returns>
+        </member>
+        <member name="M:System.Linq.Expressions.ClassBehaviourExpressionExtensions.AddMemberInit``4(System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``0,System.Collections.Generic.IEnumerable{``2}}},System.Linq.Expressions.Expression{System.Func{``1,System.Collections.Generic.IEnumerable{``3}}},System.Linq.Expressions.Expression{System.Func{``2,``3}})">
+            <summary>
+            Adds Target Enumerable member initialization from Enumerable sourceMember using memberInit projection expression.
+            </summary>
+            <typeparam name="TSource">Source Entity type.</typeparam>
+            <typeparam name="TResult">Result Projection type.</typeparam>
+            <typeparam name="TSourceMember">Source Enumerable member type.</typeparam>
+            <typeparam name="TMember">Target Enumerable member type.</typeparam>
+            <param name="init">Projection expression.</param>
+            <param name="sourceMember">Source Enumerable member memberExpression.</param>
+            <param name="member">Target Enumerable member memberEpxression.</param>
+            <param name="memberInit">Source member to Target member projection expression.</param>
+            <returns>Projection expression with added Target Enumerable member initialization.</returns>
+        </member>
+        <member name="M:System.Linq.Expressions.ClassBehaviourExpressionExtensions.AddMemberInit``3(System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``1,``2}},System.Linq.Expressions.Expression{System.Func{``0,``2}})">
+            <summary>
+            Adds Target member initialization from Entity using memberInit projection expression.
+            </summary>
+            <typeparam name="TSource">Source Entity type.</typeparam>
+            <typeparam name="TResult">Result Projection type.</typeparam>
+            <typeparam name="TMember">Target member type.</typeparam>
+            <param name="init">Projection expression.</param>
+            <param name="member">Target member memberExpression.</param>
+            <param name="memberInit">Entity to Target member projection expression.</param>
+            <returns>Perojection expression with added Target member initialization.</returns>
+        </member>
+    </members>
+</doc>

@@ -17,6 +17,12 @@ namespace System.Linq
             return queryable.Select(Mapper.GetExpression<TSource, TDest>());
         }
 
+        public static IQueryable<TDest> ResolveSelect<TSelect, TSource, TDest>(this IQueryable<TSource> queryable)
+            where TSelect : ISelectExpression<TSource, TDest>, new()
+        {
+            return queryable.Select(Mapper.GetExpression<TSelect, TSource, TDest>());
+        }
+
         public static IQueryable<TDest> ResolveSelectExternal<TSource, TDest, TParam>(this IQueryable<TSource> queryable, TParam param)
         {
             return queryable.Select(Mapper.GetExternalExpression<TSource, TDest, TParam>(param));
@@ -33,6 +39,14 @@ namespace System.Linq
             where TDest: class , new()
         {
             return enumerable.Select(Mapper.Map<TSource, TDest>);
+        }
+
+        public static IEnumerable<TDest> MapSelect<TMapper, TSource, TDest>(this IEnumerable<TSource> enumerable)
+            where TSource : class
+            where TDest : class, new()
+            where TMapper : IPropertiesMapper<TSource, TDest>, new()
+        {
+            return enumerable.Select(Mapper.Map<TMapper, TSource, TDest>);
         }
     }
 }

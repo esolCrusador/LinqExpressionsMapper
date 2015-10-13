@@ -54,14 +54,30 @@ namespace LinqExpressionsMapper
             return SelectResolverWith1Params.GetExternalExpression<TSource, TDest, TParam>(param);
         }
 
-        public static Expression<Func<TSource, TDist>> GetExpression<TSource, TDist>() where TDist : ISelectExpression<TSource, TDist>, new()
+        public static Expression<Func<TSource, TDest>> GetExpression<TSource, TDest>() where TDest : ISelectExpression<TSource, TDest>, new()
         {
-            return SelectResolver.GetExpression<TSource, TDist>();
+            return SelectResolver.GetExpression<TSource, TDest>();
         }
 
         public static Expression<Func<TSource, TDest>> GetExpression<TSource, TDest, TParam>(TParam param) where TDest : ISelectExpression<TSource, TDest, TParam>, new()
         {
             return SelectResolverWith1Params.GetExpression<TSource, TDest, TParam>(param);
+        }
+
+        public static Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest>()
+            where TSelect : ISelectExpression<TSource, TDest>, new()
+        {
+            Expression<Func<TSource, TDest>> result;
+
+            if (!SelectResolver.TryGetFromCache(out result))
+            {
+                var resolver = new TSelect();
+                SelectResolver.Register(resolver);
+
+                result = SelectResolver.GetExternalExpression<TSource, TDest>();
+            }
+
+            return result;
         }
 
         #endregion
@@ -93,14 +109,14 @@ namespace LinqExpressionsMapper
         }
 
         public static TDest Map<TMapper, TSource, TDest>(TSource source, TDest dest)
-            where TMapper : class, new()
+            where TMapper : IPropertiesMapper<TSource, TDest>, new()
             where TDest : class
             where TSource : class
         {
             IPropertiesMapper<TSource, TDest> tMapper;
             if (!MappingResolver.TryGetMapper(out tMapper))
             {
-                tMapper = (IPropertiesMapper<TSource, TDest>) new TMapper();
+                tMapper = new TMapper();
                 MappingResolver.Register(tMapper);
             }
 
@@ -110,7 +126,7 @@ namespace LinqExpressionsMapper
         }
 
         public static TDest Map<TMapper, TSource, TDest>(TSource source)
-            where TMapper : class, new()
+            where TMapper : IPropertiesMapper<TSource, TDest>, new()
             where TDest : class, new()
             where TSource : class
         {
