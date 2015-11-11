@@ -90,9 +90,9 @@ namespace LinqExpressionsMapper
         {
             TDest dest = new TDest();
 
-            IPropertiesMapper<TSource, TDest> mapper = MappingResolver.GetMapper(source, dest);
+            Action<TSource, TDest> map = MappingResolver.GetMapper(source, dest);
 
-            mapper.MapProperties(source, dest);
+            map(source, dest);
 
             return dest;
         }
@@ -101,26 +101,25 @@ namespace LinqExpressionsMapper
             where TDest : class
             where TSource : class
         {
-            IPropertiesMapper<TSource, TDest> mapper = MappingResolver.GetMapper(source, dest);
+            Action<TSource, TDest> map = MappingResolver.GetMapper(source, dest);
 
-            mapper.MapProperties(source, dest);
+            map(source, dest);
 
             return dest;
         }
 
         public static TDest Map<TMapper, TSource, TDest>(TSource source, TDest dest)
-            where TMapper : IPropertiesMapper<TSource, TDest>, new()
+            where TMapper : new()
             where TDest : class
             where TSource : class
         {
-            IPropertiesMapper<TSource, TDest> tMapper;
-            if (!MappingResolver.TryGetMapper(out tMapper))
+            Action<TSource, TDest> mapAction;
+            if (!MappingResolver.TryGetMapper(out mapAction))
             {
-                tMapper = new TMapper();
-                MappingResolver.Register(tMapper);
+                mapAction = MappingResolver.Register<TSource, TDest>(new TMapper());
             }
 
-            tMapper.MapProperties(source, dest);
+            mapAction(source, dest);
 
             return dest;
         }
@@ -136,5 +135,10 @@ namespace LinqExpressionsMapper
         }
 
         #endregion
+
+        public static void RegisterMapInterface(Type type, string methodName)
+        {
+            MappingResolver.RegisterInterface(type, methodName);
+        }
     }
 }
