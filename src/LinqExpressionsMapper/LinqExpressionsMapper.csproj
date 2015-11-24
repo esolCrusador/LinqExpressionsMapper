@@ -59,6 +59,7 @@
     <Compile Include="Extensions\LinqExpression\ContinuationsExpressionExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\EnumExpressionExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\ParameterReplacementExtensions.cs" />
+    <Compile Include="Extensions\LinqExpression\QuerableEpressionExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\Rebinders\EnumerableMemberInitRebinder.cs" />
     <Compile Include="Extensions\LinqExpression\Rebinders\InitFromMemberInheritanceRebinder.cs" />
     <Compile Include="Extensions\LinqExpression\Rebinders\InitInheritanceRebinder.cs" />
