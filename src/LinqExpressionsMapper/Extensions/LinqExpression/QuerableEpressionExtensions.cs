@@ -8,6 +8,9 @@ using System.Text;
 
 namespace System.Linq
 {
+    /// <summary>
+    /// Extensions of IQueryable
+    /// </summary>
     public static class QuerableEpressionExtensions
     {
         private const string OrderByMethod = "OrderBy";
@@ -15,11 +18,70 @@ namespace System.Linq
         private const string OrderByDescMethod = "OrderByDescending";
         private const string ThenByDescMethod = "ThenByDescending";
 
-        public static IOrderedQueryable<TItem> Sort<TItem>(this IQueryable<TItem> queryable, string sort, ListSortDirection direction, bool continueSort = false)
+        /// <summary>
+        /// Sorts by member names
+        /// </summary>
+        /// <param name="queryable">IQueryable</param>
+        /// <param name="sorts">Enumeration of sorts</param>
+        /// <typeparam name="TItem">Entity Type</typeparam>
+        /// <returns>Ordered IQueryable</returns>
+        public static IQueryable<TItem> Sort<TItem>(this IQueryable<TItem> queryable, IEnumerable<KeyValuePair<string, ListSortDirection>> sorts)
         {
-            Type itemType = typeof (TItem);
+            return Sort(queryable, sorts, true);
+        }
 
-            ParameterExpression parameter = Expression.Parameter(itemType, itemType.Name.ToLower());
+        /// <summary>
+        /// Continues sorting by member names
+        /// </summary>
+        /// <param name="queryable">Ordered IQueryable</param>
+        /// <param name="sorts">Enumeration of sorts</param>
+        /// <typeparam name="TItem">Entity Type</typeparam>
+        /// <returns>Ordered IQueryable</returns>
+        public static IQueryable<TItem> ThenSort<TItem>(this IOrderedQueryable<TItem> queryable, IEnumerable<KeyValuePair<string, ListSortDirection>> sorts)
+        {
+            return Sort(queryable, sorts, false);
+        }
+
+        /// <summary>
+        /// Sorts by member name
+        /// </summary>
+        /// <param name="queryable">IQueryable</param>
+        /// <param name="sort">Name of property</param>
+        /// <param name="direction">Direction of sorting</param>
+        /// <typeparam name="TItem">Entity type</typeparam>
+        /// <returns>Ordered IQueryable</returns>
+        public static IOrderedQueryable<TItem> Sort<TItem>(this IQueryable<TItem> queryable, string sort, ListSortDirection direction)
+        {
+            return Sort(queryable, sort, direction, false);
+        }
+
+        /// <summary>
+        /// Continues sorting by member name
+        /// </summary>
+        /// <param name="queryable">Ordered IQueryable</param>
+        /// <param name="sort">Name of property</param>
+        /// <param name="direction">Direction of sorting</param>
+        /// <typeparam name="TItem">Entity type</typeparam>
+        /// <returns>Ordered IQueryable</returns>
+        public static IOrderedQueryable<TItem> ThenSort<TItem>(this IOrderedQueryable<TItem> queryable, string sort, ListSortDirection direction)
+        {
+            return Sort(queryable, sort, direction, true);
+        }
+
+        private static IQueryable<TItem> Sort<TItem>(this IQueryable<TItem> queryable, IEnumerable<KeyValuePair<string, ListSortDirection>> sorts, bool replaceSort)
+        {
+            foreach (KeyValuePair<string, ListSortDirection> sort in sorts)
+            {
+                queryable = queryable.Sort(sort.Key, sort.Value, replaceSort);
+                replaceSort = false;
+            }
+
+            return queryable;
+        }
+
+        private static IOrderedQueryable<TItem> Sort<TItem>(this IQueryable<TItem> queryable, string sort, ListSortDirection direction, bool continueSort)
+        {
+            Type itemType = typeof(TItem);
 
             string orderMethod;
             switch (direction)
@@ -34,24 +96,28 @@ namespace System.Linq
                     throw new ArgumentOutOfRangeException();
             }
 
+            LambdaExpression memberExpression = GetMemberLambdaExpression(itemType, sort);
 
-            MemberInfo member = typeof (TItem).GetMember(sort)[0];
-
-            LambdaExpression memberExpression = Expression.Lambda(Expression.MakeMemberAccess(parameter, member), parameter);
-
-            return (IOrderedQueryable<TItem>) queryable.Provider.CreateQuery(Expression.Call(typeof (Queryable), orderMethod, new[] {itemType, memberExpression.Body.Type}, queryable.Expression, Expression.Quote(memberExpression)));
+            return (IOrderedQueryable<TItem>)queryable.Provider.CreateQuery(Expression.Call(typeof(Queryable), orderMethod, new[] { itemType, memberExpression.Body.Type }, queryable.Expression, Expression.Quote(memberExpression)));
         }
 
-        public static IQueryable<TItem> Sort<TItem>(this IQueryable<TItem> queryable, IEnumerable<KeyValuePair<string, ListSortDirection>> sorts)
+        private static LambdaExpression GetMemberLambdaExpression(Type itemType, string propertyPath)
         {
-            bool replaceSort = false;
-            foreach (var sort in sorts)
+            ParameterExpression parameter = Expression.Parameter(itemType, itemType.Name.ToLower());
+            Expression expression = parameter;
+
+            string[] names = propertyPath.Split('.');
+
+            foreach (string name in names)
             {
-                queryable = queryable.Sort(sort.Key, sort.Value, replaceSort);
-                replaceSort = true;
+                MemberInfo member = itemType.GetMember(name)[0];
+
+                expression = Expression.MakeMemberAccess(expression, member);
+
+                itemType = expression.Type;
             }
 
-            return queryable;
+            return Expression.Lambda(expression, parameter);
         }
     }
 }
