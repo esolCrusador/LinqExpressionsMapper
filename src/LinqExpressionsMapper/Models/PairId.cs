@@ -66,11 +66,11 @@ namespace LinqExpressionsMapper.Models
         }
     }
 
-    internal class PairId : PairId<Guid, Guid>
+    internal class PairId : PairId<Type, Type>
     {
         private string _name;
 
-        private PairId(Guid sourceId, Guid destId) : base(sourceId, destId)
+        private PairId(Type sourceId, Type destId) : base(sourceId, destId)
         {
 
         }
@@ -80,7 +80,7 @@ namespace LinqExpressionsMapper.Models
             Type sourceType = typeof(TSource);
             Type destType = typeof(TDset);
 
-            var pairId = new PairId(sourceType.GUID, destType.GUID)
+            var pairId = new PairId(sourceType, destType)
             {
                 _name = "<" + sourceType.Name + "," + destType.Name + ">"
             };
