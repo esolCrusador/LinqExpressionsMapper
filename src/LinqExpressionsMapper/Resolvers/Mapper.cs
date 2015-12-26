@@ -80,6 +80,22 @@ namespace LinqExpressionsMapper
             return result;
         }
 
+        public static Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest, TParam>(TParam param)
+            where TSelect : ISelectExpression<TSource, TDest>, new()
+        {
+            Expression<Func<TSource, TDest>> result;
+
+            if (!SelectResolver.TryGetFromCache(out result))
+            {
+                var resolver = new TSelect();
+                SelectResolver.Register(resolver);
+
+                result = SelectResolverWith1Params.GetExternalExpression<TSource, TDest, TParam>(param);
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Mapping Resolver
@@ -133,6 +149,21 @@ namespace LinqExpressionsMapper
             var dest = new TDest();
 
             return Map<TMapper, TSource, TDest>(source, dest);
+        }
+
+        #endregion
+
+        #region Builders
+
+        public static PropertiesMappingBuilder<TSource> From<TSource>(TSource source) 
+            where TSource : class
+        {
+            return new PropertiesMappingBuilder<TSource>(source);
+        }
+
+        public static ExpressionMappingBuilder<TSource> From<TSource>()
+        {
+            return new ExpressionMappingBuilder<TSource>();
         }
 
         #endregion

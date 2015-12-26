@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 using LinqExpressionsMapper;
+using LinqExpressionsMapper.Resolvers.MappingBuilders;
 
 namespace System.Linq
 {
@@ -47,6 +48,17 @@ namespace System.Linq
             where TMapper : IPropertiesMapper<TSource, TDest>, new()
         {
             return enumerable.Select(Mapper.Map<TMapper, TSource, TDest>);
+        }
+
+        public static EnumerableMappingBuilder<TSource> Map<TSource>(this IEnumerable<TSource> enumerable) 
+            where TSource : class
+        {
+            return new EnumerableMappingBuilder<TSource>(enumerable);
+        }
+
+        public static QueryableMappingBuilder<TSource> Map<TSource>(this IQueryable<TSource> queryable)
+        {
+            return new QueryableMappingBuilder<TSource>(queryable);
         }
     }
 }
