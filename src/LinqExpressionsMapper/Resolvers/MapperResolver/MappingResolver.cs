@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LinqExpressionsMapper.Models;
 
 namespace LinqExpressionsMapper.Resolvers.MapperResolver
@@ -27,6 +28,29 @@ namespace LinqExpressionsMapper.Resolvers.MapperResolver
                 else
                 {
                     _cache.Add(PairId.GetId<TSource, TDest>(), mapper);
+                }
+            }
+        }
+
+        public void RegisterAll(object mapper, Type interfaces, Type[] implementedInterfaces)
+        {
+            lock (_sync)
+            {
+                Type propertiesMapperType = typeof (IPropertiesMapper<,>);
+                foreach (Type mapperType in implementedInterfaces.Where(i=>i.GUID==propertiesMapperType.GUID))
+                {
+                    Type[] genericArgs = mapperType.GetGenericArguments();
+
+                    var pairId = PairId.GetId(genericArgs[0], genericArgs[1]);
+
+                    if (_cache.ContainsKey(pairId))
+                    {
+                        _cache[pairId] = mapper;
+                    }
+                    else
+                    {
+                        _cache.Add(pairId, mapper);
+                    }
                 }
             }
         }

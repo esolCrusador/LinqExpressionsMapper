@@ -42,7 +42,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
             return Resolve(_sourceQueryable);
         }
 
-        public virtual IQueryable<TDest> Select<TParam>(TParam param)
+        public virtual IQueryable<TDest> SelectWith<TParam>(TParam param)
         {
             return _sourceQueryable.Select(Mapper.From<TSource>().To<TDest>().GetExpression(param));
         }
@@ -100,7 +100,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
             return sourceQueryable.ResolveSelect<TSelect, TSource, TDest>();
         }
 
-        public override IQueryable<TDest> Select<TParam>(TParam param)
+        public override IQueryable<TDest> SelectWith<TParam>(TParam param)
         {
             return _sourceQueryable.Select(Mapper.From<TSource>().To<TDest>().Using<TSelect>().GetExpression(param));
         }

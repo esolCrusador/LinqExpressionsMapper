@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using LinqExpressionsMapper.Resolvers.MapperResolver;
 using LinqExpressionsMapper.Resolvers.SelectsResolver;
@@ -40,9 +41,19 @@ namespace LinqExpressionsMapper
             MappingResolver.Register(propertiesMapper);
         }
 
+        public static void RegisterAll(object mapper)
+        {
+            var mapperType = mapper.GetType();
+            var implementedInterfaces = mapperType.GetInterfaces();
+
+            MappingResolver.RegisterAll(mapper, mapperType, implementedInterfaces);
+            SelectResolver.RegisterAll(mapper, mapperType, implementedInterfaces);
+            SelectResolverWith1Params.RegisterAll(mapper, mapperType, implementedInterfaces);
+        }
+
         #endregion
 
-        #region Select Resolver
+        #region SelectWith Resolver
 
         public static Expression<Func<TSource, TDist>> GetExternalExpression<TSource, TDist>()
         {
