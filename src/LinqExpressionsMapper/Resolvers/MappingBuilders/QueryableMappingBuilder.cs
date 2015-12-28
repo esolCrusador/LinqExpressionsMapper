@@ -24,33 +24,33 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
 
     public class QueryableMappingBuilder<TSource, TDest> : IQueryable<TDest>
     {
-        protected readonly IQueryable<TSource> _sourceQueryable;
+        protected readonly IQueryable<TSource> SourceQueryable;
         protected IQueryable<TDest> ResultQuery;
 
         public QueryableMappingBuilder(IQueryable<TSource> sourceQueryable)
         {
-            _sourceQueryable = sourceQueryable;
+            SourceQueryable = sourceQueryable;
         }
 
         protected IQueryable<TDest> ResultQueryable
         {
-            get { return ResultQuery ?? (ResultQuery = Resolve(_sourceQueryable)); }
+            get { return ResultQuery ?? (ResultQuery = Resolve(SourceQueryable)); }
         }
 
         public IQueryable<TDest> Select()
         {
-            return Resolve(_sourceQueryable);
+            return Resolve(SourceQueryable);
         }
 
         public virtual IQueryable<TDest> SelectWith<TParam>(TParam param)
         {
-            return _sourceQueryable.Select(Mapper.From<TSource>().To<TDest>().GetExpression(param));
+            return SourceQueryable.Select(Mapper.From<TSource>().To<TDest>().GetExpression(param));
         }
 
         public QueryableMappingBuilder<TSelect, TSource, TDest> Using<TSelect>() 
             where TSelect : ISelectExpression<TSource, TDest>, new()
         {
-            return new QueryableMappingBuilder<TSelect, TSource, TDest>(_sourceQueryable);
+            return new QueryableMappingBuilder<TSelect, TSource, TDest>(SourceQueryable);
         }
 
         protected virtual IQueryable<TDest> Resolve(IQueryable<TSource> sourceQueryable )
@@ -102,7 +102,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
 
         public override IQueryable<TDest> SelectWith<TParam>(TParam param)
         {
-            return _sourceQueryable.Select(Mapper.From<TSource>().To<TDest>().Using<TSelect>().GetExpression(param));
+            return SourceQueryable.Select(Mapper.From<TSource>().To<TDest>().Using<TSelect>().GetExpression(param));
         }
     }
 }

@@ -56,7 +56,7 @@ namespace System.Linq
             return new EnumerableMappingBuilder<TSource>(enumerable);
         }
 
-        public static QueryableMappingBuilder<TSource> Map<TSource>(this IQueryable<TSource> queryable)
+        public static QueryableMappingBuilder<TSource> Project<TSource>(this IQueryable<TSource> queryable)
         {
             return new QueryableMappingBuilder<TSource>(queryable);
         }
