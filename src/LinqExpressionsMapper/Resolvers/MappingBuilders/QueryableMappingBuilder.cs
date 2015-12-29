@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.InteropServices;
 
 namespace LinqExpressionsMapper.Resolvers.MappingBuilders
 {
@@ -22,87 +18,63 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         }
     }
 
-    public class QueryableMappingBuilder<TSource, TDest> : IQueryable<TDest>
+    public struct QueryableMappingBuilder<TSource, TDest>
     {
-        protected readonly IQueryable<TSource> SourceQueryable;
-        protected IQueryable<TDest> ResultQuery;
+        private readonly IQueryable<TSource> _sourceQueryable;
+        private IQueryable<TDest> _resultQuery;
 
         public QueryableMappingBuilder(IQueryable<TSource> sourceQueryable)
         {
-            SourceQueryable = sourceQueryable;
+            _sourceQueryable = sourceQueryable;
+            _resultQuery = null;
         }
 
-        protected IQueryable<TDest> ResultQueryable
+        public IQueryable<TDest> GetQueryable()
         {
-            get { return ResultQuery ?? (ResultQuery = Resolve(SourceQueryable)); }
+            return _sourceQueryable.ResolveSelectExternal<TSource, TDest>();
         }
 
-        public IQueryable<TDest> Select()
+        public IQueryable<TDest> Querable
         {
-            return Resolve(SourceQueryable);
+            get { return _resultQuery ?? (_resultQuery = GetQueryable()); }
         }
 
-        public virtual IQueryable<TDest> SelectWith<TParam>(TParam param)
+        public IQueryable<TDest> GetQueryable<TParam>(TParam param)
         {
-            return SourceQueryable.Select(Mapper.From<TSource>().To<TDest>().GetExpression(param));
+            return _sourceQueryable.Select(Mapper.From<TSource>().To<TDest>().GetExpression(param));
         }
 
         public QueryableMappingBuilder<TSelect, TSource, TDest> Using<TSelect>() 
             where TSelect : ISelectExpression<TSource, TDest>, new()
         {
-            return new QueryableMappingBuilder<TSelect, TSource, TDest>(SourceQueryable);
+            return new QueryableMappingBuilder<TSelect, TSource, TDest>(_sourceQueryable);
         }
-
-        protected virtual IQueryable<TDest> Resolve(IQueryable<TSource> sourceQueryable )
-        {
-            return sourceQueryable.ResolveSelectExternal<TSource, TDest>();
-        }
-
-        #region IQueryable<TDest>
-
-        public IEnumerator<TDest> GetEnumerator()
-        {
-            return ResultQueryable.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public Expression Expression
-        {
-            get { return ResultQueryable.Expression; }
-        }
-
-        public Type ElementType
-        {
-            get { return ResultQueryable.ElementType; }
-        }
-
-        public IQueryProvider Provider
-        {
-            get { return ResultQueryable.Provider; }
-        }
-
-        #endregion
     }
 
-    public class QueryableMappingBuilder<TSelect, TSource, TDest> : QueryableMappingBuilder<TSource, TDest> 
+    public struct QueryableMappingBuilder<TSelect, TSource, TDest>
         where TSelect : ISelectExpression<TSource, TDest>, new()
     {
-        public QueryableMappingBuilder(IQueryable<TSource> sourceQueryable) : base(sourceQueryable)
+        private readonly IQueryable<TSource> _sourceQueryable;
+        private IQueryable<TDest> _resultQuery;
+
+        public QueryableMappingBuilder(IQueryable<TSource> sourceQueryable)
         {
+            _sourceQueryable = sourceQueryable;
+            _resultQuery = null;
         }
 
-        protected override IQueryable<TDest> Resolve(IQueryable<TSource> sourceQueryable)
+        public IQueryable<TDest> Queryable
         {
-            return sourceQueryable.ResolveSelect<TSelect, TSource, TDest>();
+            get { return _resultQuery ?? (_resultQuery = GetQueryable()); }
         }
 
-        public override IQueryable<TDest> SelectWith<TParam>(TParam param)
+        public IQueryable<TDest> GetQueryable()
         {
-            return SourceQueryable.Select(Mapper.From<TSource>().To<TDest>().Using<TSelect>().GetExpression(param));
+            return _sourceQueryable.ResolveSelect<TSelect, TSource, TDest>();
+        }
+        public IQueryable<TDest> GetQueryable<TParam>(TParam param)
+        {
+            return _sourceQueryable.Select(Mapper.From<TSource>().To<TDest>().Using<TSelect>().GetExpression(param));
         }
     }
 }

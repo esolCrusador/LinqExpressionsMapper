@@ -21,7 +21,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         }
     }
 
-    public class EnumerableMappingBuilder<TSource, TDest> : IEnumerable<TDest>
+    public struct EnumerableMappingBuilder<TSource, TDest>
         where TSource : class
         where TDest : class, new()
     {
@@ -31,6 +31,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         public EnumerableMappingBuilder(IEnumerable<TSource> sourceEnumerable)
         {
             _sourceEnumerable = sourceEnumerable;
+            _resultEnumerable = null;
         }
 
         public EnumerableMappingBuilder<TSelect, TSource, TDest> Using<TSelect>() 
@@ -39,48 +40,40 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
             return new EnumerableMappingBuilder<TSelect, TSource, TDest>(_sourceEnumerable);
         }
 
-        public IEnumerable<TDest> Select()
+        public IEnumerable<TDest> GetEnumerable()
         {
-            return ResultEnumerable;
+            return _sourceEnumerable.MapSelect<TSource, TDest>();
         }
 
-        protected virtual IEnumerable<TDest> Resolve(IEnumerable<TSource> source)
+        public IEnumerable<TDest> Enumerable
         {
-            return source.MapSelect<TSource, TDest>();
+            get { return _resultEnumerable ?? (_resultEnumerable = GetEnumerable()); }
         }
-
-        protected IEnumerable<TDest> ResultEnumerable
-        {
-            get { return _resultEnumerable ?? (_resultEnumerable = Resolve(_sourceEnumerable)); }
-        }
-
-        #region IEnumerable<TDest>
-
-        public IEnumerator<TDest> GetEnumerator()
-        {
-            return ResultEnumerable.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        #endregion
     }
 
-    public class EnumerableMappingBuilder<TSelect, TSource, TDest> : EnumerableMappingBuilder<TSource, TDest>
-       where TSource : class
-       where TDest : class, new() 
+    public struct EnumerableMappingBuilder<TSelect, TSource, TDest>
+        where TSource : class
+        where TDest : class, new()
         where TSelect : IPropertiesMapper<TSource, TDest>, new()
     {
-        public EnumerableMappingBuilder(IEnumerable<TSource> sourceEnumerable) : base(sourceEnumerable)
+        private readonly IEnumerable<TSource> _sourceEnumerable;
+        private IEnumerable<TDest> _resultEnumerable;
+
+        public EnumerableMappingBuilder(IEnumerable<TSource> sourceEnumerable)
         {
+            _sourceEnumerable = sourceEnumerable;
+            _resultEnumerable = null;
         }
 
-        protected override IEnumerable<TDest> Resolve(IEnumerable<TSource> source)
+        public IEnumerable<TDest> GetEnumerable()
         {
-            return source.MapSelect<TSelect, TSource, TDest>();
+            return _sourceEnumerable.MapSelect<TSelect, TSource, TDest>();
+            ;
+        }
+
+        public IEnumerable<TDest> Enumerable
+        {
+            get { return _resultEnumerable ?? (_resultEnumerable = GetEnumerable()); }
         }
     }
 }
