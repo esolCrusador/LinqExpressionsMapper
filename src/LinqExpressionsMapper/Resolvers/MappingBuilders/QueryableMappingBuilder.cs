@@ -34,7 +34,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
             return _sourceQueryable.ResolveSelectExternal<TSource, TDest>();
         }
 
-        public IQueryable<TDest> Querable
+        public IQueryable<TDest> Queryable
         {
             get { return _resultQuery ?? (_resultQuery = GetQueryable()); }
         }
