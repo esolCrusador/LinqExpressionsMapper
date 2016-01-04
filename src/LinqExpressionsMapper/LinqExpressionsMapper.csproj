@@ -91,6 +91,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Culture.cs</LastGenOutput>
     </Content>
+    <None Include="install.ps1" />
     <Content Include="Resolvers\SelectsResolver\SelectResolvers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SelectResolvers.cs</LastGenOutput>
