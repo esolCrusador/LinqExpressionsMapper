@@ -74,6 +74,7 @@
     <Compile Include="Resolvers\Mapper.cs" />
     <Compile Include="Resolvers\MapperLinqExpressionsExtension.cs" />
     <Compile Include="Resolvers\MapperLinqSelectExtension.cs" />
+    <Compile Include="Resolvers\MapperResolver\IMultipleMappings.cs" />
     <Compile Include="Resolvers\MapperResolver\IPropertiesMapper.cs" />
     <Compile Include="Resolvers\MapperResolver\MappingResolver.cs" />
     <Compile Include="Resolvers\MappingBuilders\EnumerableMappingBuilder.cs" />

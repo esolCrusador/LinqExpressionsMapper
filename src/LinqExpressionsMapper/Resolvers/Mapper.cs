@@ -20,25 +20,29 @@ namespace LinqExpressionsMapper
         }
 
         #region Registration
-        
+
         public static void Register<TSource, TDest>(ISelectExpression<TSource, TDest> selectExpression)
         {
-            SelectResolver.Register(selectExpression);
+            if (!RegisterAllIfMultipleMappings(selectExpression))
+                SelectResolver.Register(selectExpression);
         }
 
         public static void Register<TSource, TDest>(ISelectDynamicExpression<TSource, TDest> selectDynamicExpression)
         {
-            SelectResolver.Register(selectDynamicExpression);
+            if (!RegisterAllIfMultipleMappings(selectDynamicExpression))
+                SelectResolver.Register(selectDynamicExpression);
         }
 
         public static void Register<TSource, TDest, TParam>(ISelectExpression<TSource, TDest, TParam> selectExpression)
         {
-            SelectResolverWith1Params.Register(selectExpression);
+            if (!RegisterAllIfMultipleMappings(selectExpression))
+                SelectResolverWith1Params.Register(selectExpression);
         }
 
         public static void Register<TSource, TDest>(IPropertiesMapper<TSource, TDest> propertiesMapper)
         {
-            MappingResolver.Register(propertiesMapper);
+            if (!RegisterAllIfMultipleMappings(propertiesMapper))
+                MappingResolver.Register(propertiesMapper);
         }
 
         public static void RegisterAll(object mapper)
@@ -49,6 +53,16 @@ namespace LinqExpressionsMapper
             MappingResolver.RegisterAll(mapper, mapperType, implementedInterfaces);
             SelectResolver.RegisterAll(mapper, mapperType, implementedInterfaces);
             SelectResolverWith1Params.RegisterAll(mapper, mapperType, implementedInterfaces);
+        }
+
+        private static bool RegisterAllIfMultipleMappings(object mapper)
+        {
+            if (mapper is IMultipleMappings)
+            {
+                RegisterAll(mapper);
+                return true;
+            }
+            return false;
         }
 
         #endregion
@@ -83,7 +97,7 @@ namespace LinqExpressionsMapper
             if (!SelectResolver.TryGetFromCache(out result))
             {
                 var resolver = new TSelect();
-                SelectResolver.Register(resolver);
+                Register(resolver);
 
                 result = SelectResolver.GetExternalExpression<TSource, TDest>();
             }
@@ -99,7 +113,7 @@ namespace LinqExpressionsMapper
             if (!SelectResolver.TryGetFromCache(out result))
             {
                 var resolver = new TSelect();
-                SelectResolver.Register(resolver);
+                Register(resolver);
 
                 result = SelectResolverWith1Params.GetExternalExpression<TSource, TDest, TParam>(param);
             }
@@ -144,7 +158,7 @@ namespace LinqExpressionsMapper
             if (!MappingResolver.TryGetMapper(out tMapper))
             {
                 tMapper = new TMapper();
-                MappingResolver.Register(tMapper);
+                Register(tMapper);
             }
 
             tMapper.MapProperties(source, dest);

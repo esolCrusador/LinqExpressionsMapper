@@ -11,7 +11,7 @@ namespace System.Linq
     /// <summary>
     /// Extensions of IQueryable
     /// </summary>
-    public static class QuerableEpressionExtensions
+    public static class QueryableEpressionExtensions
     {
         private const string OrderByMethod = "OrderBy";
         private const string ThenByMethod = "ThenBy";
