@@ -14,10 +14,19 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
             _sourceEnumerable = sourceEnumerable;
         }
 
-        public EnumerableMappingBuilder<TSource, TDest> To<TDest>() 
+        public IEnumerable<TDest> To<TDest>() 
             where TDest : class, new()
         {
-            return new EnumerableMappingBuilder<TSource, TDest>(_sourceEnumerable);
+            return _sourceEnumerable.MapSelect<TSource, TDest>();
+        }
+
+        public IEnumerable<TDest> To<TDest>(Action<EnumerableMappingBuilder<TSource, TDest>> configure)
+            where TDest : class, new()
+        {
+            var mappingDelegateContainer = new EnumerableFactory<TDest>();
+            configure(new EnumerableMappingBuilder<TSource, TDest>(_sourceEnumerable, mappingDelegateContainer));
+
+            return mappingDelegateContainer.Create();
         }
     }
 
@@ -26,28 +35,24 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         where TDest : class, new()
     {
         private readonly IEnumerable<TSource> _sourceEnumerable;
-        private IEnumerable<TDest> _resultEnumerable;
-
-        public EnumerableMappingBuilder(IEnumerable<TSource> sourceEnumerable)
+        public EnumerableMappingBuilder(IEnumerable<TSource> sourceEnumerable, EnumerableFactory<TDest> enumerableFactory)
         {
             _sourceEnumerable = sourceEnumerable;
-            _resultEnumerable = null;
+            EnumerableFactory = enumerableFactory;
+            EnumerableFactory.Create = GetEnumerable;
         }
+
+        internal EnumerableFactory<TDest> EnumerableFactory { get; private set; }
 
         public EnumerableMappingBuilder<TSelect, TSource, TDest> Using<TSelect>() 
             where TSelect : IPropertiesMapper<TSource, TDest>, new()
         {
-            return new EnumerableMappingBuilder<TSelect, TSource, TDest>(_sourceEnumerable);
+            return new EnumerableMappingBuilder<TSelect, TSource, TDest>(_sourceEnumerable, EnumerableFactory);
         }
 
-        public IEnumerable<TDest> GetEnumerable()
+        private IEnumerable<TDest> GetEnumerable()
         {
             return _sourceEnumerable.MapSelect<TSource, TDest>();
-        }
-
-        public IEnumerable<TDest> Enumerable
-        {
-            get { return _resultEnumerable ?? (_resultEnumerable = GetEnumerable()); }
         }
     }
 
@@ -57,23 +62,24 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         where TSelect : IPropertiesMapper<TSource, TDest>, new()
     {
         private readonly IEnumerable<TSource> _sourceEnumerable;
-        private IEnumerable<TDest> _resultEnumerable;
 
-        public EnumerableMappingBuilder(IEnumerable<TSource> sourceEnumerable)
+        public EnumerableMappingBuilder(IEnumerable<TSource> sourceEnumerable, EnumerableFactory<TDest> enumerableFactory)
         {
+            EnumerableFactory = enumerableFactory;
             _sourceEnumerable = sourceEnumerable;
-            _resultEnumerable = null;
+            enumerableFactory.Create = GetEnumerable;
         }
 
-        public IEnumerable<TDest> GetEnumerable()
+        internal EnumerableFactory<TDest> EnumerableFactory { get; private set; }
+
+        private IEnumerable<TDest> GetEnumerable()
         {
             return _sourceEnumerable.MapSelect<TSelect, TSource, TDest>();
-            ;
         }
+    }
 
-        public IEnumerable<TDest> Enumerable
-        {
-            get { return _resultEnumerable ?? (_resultEnumerable = GetEnumerable()); }
-        }
+    public class EnumerableFactory<TDest>
+    {
+        public Func<IEnumerable<TDest>> Create { get; set; }
     }
 }
