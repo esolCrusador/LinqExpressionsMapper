@@ -10,21 +10,22 @@ namespace LinqExpressionsMapper.Extensions.LinqExpression.Rebinders
     {
         protected readonly Expression<Func<TBaseSource, TBaseDist>> BaseInitExpr;
 
-        public InitInheritanceRebinder(Expression<Func<TBaseSource, TBaseDist>> baseExpr, Expression<Func<TSource, TDest>> initializationExpression)
-            : base(initializationExpression)
+        public InitInheritanceRebinder(Expression<Func<TBaseSource, TBaseDist>> baseExpr)
+            : base()
         {
             BaseInitExpr = baseExpr;
         }
 
-        public override Expression<Func<TSource, TDest>> ExtendInitialization()
+        public override Expression<Func<TSource, TDest>> ExtendInitialization(Expression<Func<TSource, TDest>> initializationExpression)
         {
-            List<MemberBinding> baseBindings = GetBaseInitExpressionBody().Bindings.ToList();
+            ParameterExpression parameter = initializationExpression.Parameters[0];
+            List<MemberBinding> baseBindings = GetBaseInitExpressionBody(parameter).Bindings.ToList();
             List<MemberBinding> bindings;
 
-            NewExpression newExpression = InitializationExpression.Body as NewExpression;
+            NewExpression newExpression = initializationExpression.Body as NewExpression;
             if (newExpression == null)
             {
-                var inheritedInitExpr = (MemberInitExpression) InitializationExpression.Body;
+                var inheritedInitExpr = (MemberInitExpression)initializationExpression.Body;
 
                 newExpression = inheritedInitExpr.NewExpression;
                 bindings = inheritedInitExpr.Bindings.ToList();
@@ -37,12 +38,12 @@ namespace LinqExpressionsMapper.Extensions.LinqExpression.Rebinders
 
             bindings.AddRange(baseBindings.Where(baseBinding => bindings.All(b => b.Member.Name != baseBinding.Member.Name)));
 
-            return Expression.Lambda<Func<TSource, TDest>>(Expression.MemberInit(newExpression, bindings), Parameter);
+            return Expression.Lambda<Func<TSource, TDest>>(Expression.MemberInit(newExpression, bindings), parameter);
         }
 
-        protected virtual MemberInitExpression GetBaseInitExpressionBody()
+        protected virtual MemberInitExpression GetBaseInitExpressionBody(ParameterExpression parameter)
         {
-            Expression<Func<TSource, TBaseDist>> newExpression = BaseInitExpr.ReplaceParameter<TBaseSource, TSource, TBaseDist>(Parameter);
+            Expression<Func<TSource, TBaseDist>> newExpression = BaseInitExpr.ReplaceParameter<TBaseSource, TSource, TBaseDist>(parameter);
 
             return (MemberInitExpression) newExpression.Body;
         }

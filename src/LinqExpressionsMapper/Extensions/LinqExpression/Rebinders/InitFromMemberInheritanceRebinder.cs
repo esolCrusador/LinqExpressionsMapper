@@ -9,16 +9,16 @@ namespace LinqExpressionsMapper.Extensions.LinqExpression.Rebinders
         private readonly Expression<Func<TSource, TBaseSource>> _entityMember;
 
         public InitFromMemberInheritanceRebinder(Expression<Func<TBaseSource, TBaseDest>> baseExpr, Expression<Func<TSource, TBaseSource>> entityMember, Expression<Func<TSource, TDest>> initializationExpression)
-            : base(baseExpr, initializationExpression)
+            : base(baseExpr)
         {
             _entityMember = entityMember;
         }
 
-        protected override MemberInitExpression GetBaseInitExpressionBody()
+        protected override MemberInitExpression GetBaseInitExpressionBody(ParameterExpression parameter)
         {
             Expression<Func<TSource, TBaseDest>> replacedInit = BaseInitExpr.ReplaceParameter(_entityMember);
 
-            return (MemberInitExpression)replacedInit.ReplaceParameter(Parameter).Body;
+            return (MemberInitExpression)replacedInit.ReplaceParameter(parameter).Body;
         }
     }
 }

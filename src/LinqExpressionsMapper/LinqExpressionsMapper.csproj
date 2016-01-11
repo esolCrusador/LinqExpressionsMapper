@@ -55,6 +55,7 @@
     <Compile Include="Extensions\FilterExpressionExtensions.cs" />
     <Compile Include="Extensions\IFilterExpression.cs" />
     <Compile Include="Extensions\LinqExpression\AggregateExpressionExtensions.cs" />
+    <Compile Include="Extensions\LinqExpression\ExpressionResolvingExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\ClassBehaviourExpressionExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\ContinuationsExpressionExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\EnumExpressionExtensions.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Extensions\LinqExpression\Visitors\MemberRebinder.cs" />
     <Compile Include="Extensions\LinqExpression\Visitors\ParameterChangeTypeRebinder.cs" />
     <Compile Include="Extensions\LinqExpression\Visitors\ParameterRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Visitors\ResolveExpressionRebinder.cs" />
     <Compile Include="Models\PairId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resolvers\Mapper.cs" />

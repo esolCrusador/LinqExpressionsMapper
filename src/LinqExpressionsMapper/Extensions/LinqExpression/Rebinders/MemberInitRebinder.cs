@@ -13,34 +13,34 @@ namespace LinqExpressionsMapper.Extensions.LinqExpression.Rebinders
         private readonly Expression<Func<TResult, TMember>> _member;
         private readonly Expression<Func<TSourceMember, TMember>> _initialization;
 
-        public MemberInitRebinder(Expression<Func<TSource, TResult>> initializationExpression,
-                                 Expression<Func<TSource, TSourceMember>> sourceMember,
+        public MemberInitRebinder(Expression<Func<TSource, TSourceMember>> sourceMember,
                                  Expression<Func<TResult, TMember>> member,
                                  Expression<Func<TSourceMember, TMember>> initialization)
-            : base(initializationExpression)
+            : base()
         {
             _sourceMember = sourceMember;
             _member = member;
             _initialization = initialization;
         }
 
-        protected virtual Expression GetInitExpression()
+        protected virtual Expression GetInitExpression(ParameterExpression parameter)
         {
             return _sourceMember == null 
-                ? _initialization.ReplaceParameter(Parameter).Body 
-                : _sourceMember.Continue(_initialization).ReplaceParameter(Parameter).Body;
+                ? _initialization.ReplaceParameter(parameter).Body 
+                : _sourceMember.Continue(_initialization).ReplaceParameter(parameter).Body;
         }
 
-        public override Expression<Func<TSource, TResult>> ExtendInitialization()
+        public override Expression<Func<TSource, TResult>> ExtendInitialization(Expression<Func<TSource, TResult>>  initializationExpression)
         {
-            var memberInitBody = InitializationExpression.Body as MemberInitExpression
-                                 ?? Expression.MemberInit((NewExpression) InitializationExpression.Body);
+            ParameterExpression parameter = initializationExpression.Parameters[0];
+            var memberInitBody = initializationExpression.Body as MemberInitExpression
+                                 ?? Expression.MemberInit((NewExpression)initializationExpression.Body);
 
             List<MemberBinding> bindingsList = memberInitBody.Bindings.ToList();
 
             MemberInfo member = ((MemberExpression)_member.Body).Member;
 
-            Expression memberFromSourceInit = GetInitExpression();
+            Expression memberFromSourceInit = GetInitExpression(parameter);
 
             var memberAssigment = (MemberAssignment)bindingsList.FirstOrDefault(m => m.Member.Name == member.Name);
             if (memberAssigment == null)
@@ -54,7 +54,7 @@ namespace LinqExpressionsMapper.Extensions.LinqExpression.Rebinders
             }
             bindingsList.Add(memberAssigment);
 
-            return Expression.Lambda<Func<TSource, TResult>>(Expression.MemberInit(memberInitBody.NewExpression, bindingsList), Parameter);
+            return Expression.Lambda<Func<TSource, TResult>>(Expression.MemberInit(memberInitBody.NewExpression, bindingsList), parameter);
         }
     }
 }
