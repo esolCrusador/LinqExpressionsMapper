@@ -11,7 +11,7 @@ namespace System.Linq
             return default(TDest);
         }
 
-        public static IEnumerable<TDest> InitFrom<TSource, TDest, TSourceEnumerable>(this Expression<Func<TSource, TDest>> expression, TSourceEnumerable source)
+        public static IEnumerable<TDest> InitEnumerableFrom<TSource, TDest, TSourceEnumerable>(this Expression<Func<TSource, TDest>> expression, TSourceEnumerable source)
             where TSourceEnumerable : IEnumerable<TSource>
         {
             return default(IEnumerable<TDest>);
