@@ -70,7 +70,7 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
             Type selectExpressionType = typeof (ISelectExpression<,>);
             Type dynamicSelectExpressionType = typeof (ISelectDynamicExpression<,>);
 
-            var relevantInterfaces = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
+            var selectExpressions = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
                 .Select(i =>
                 {
                     var genericArgs = i.GetGenericArguments();
@@ -85,34 +85,47 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                 .Select(
                     g => g.FirstOrDefault(i => i.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
                          ?? g.First(i => i.InterfaceType.GUID == selectExpressionType.GUID)
-                );
+                )
+                .Select(interfaceDescription =>
+                {
+                    var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
+                                     ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
 
-            foreach (var interfaceDescription in relevantInterfaces)
-            {
-                var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
-                                 ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
-
-                Type delegateType = typeof (Func<>).MakeGenericType(
+					Type delegateType = typeof (Func<>).MakeGenericType(
                     typeof (Expression<>).MakeGenericType(
-                        typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
-                        )
-                    );
+							typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
+							)
+						);
 
-                var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
+                    var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
 
-                Dictionary<PairId, Delegate> cacheDictionary;
-                if (interfaceDescription.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
-                    cacheDictionary = _dynamicExpressionFactories;
-                else if (interfaceDescription.InterfaceType.GUID == selectExpressionType.GUID)
-                    cacheDictionary = _expressionFactories;
-                else
-                    throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", interfaceDescription.InterfaceType.FullName));
+                    return new
+                    {
+                        InterfaceType = interfaceDescription.InterfaceType,
+                        PairId = interfaceDescription.PairId,
+                        FactoryDelegate = factoryDelegate
+                    };
+                })
+				.ToList();
 
-                if (cacheDictionary.ContainsKey(interfaceDescription.PairId))
-                    cacheDictionary[interfaceDescription.PairId] = factoryDelegate;
-                else
-                    cacheDictionary.Add(interfaceDescription.PairId, factoryDelegate);
-            }
+			lock(_sync)
+			{
+				foreach (var selectExpression in selectExpressions)
+				{
+					Dictionary<PairId, Delegate> cacheDictionary;
+					if (selectExpression.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+						cacheDictionary = _dynamicExpressionFactories;
+					else if (selectExpression.InterfaceType.GUID == selectExpressionType.GUID)
+						cacheDictionary = _expressionFactories;
+					else
+						throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", selectExpression.InterfaceType.FullName));
+
+					if (cacheDictionary.ContainsKey(selectExpression.PairId))
+						cacheDictionary[selectExpression.PairId] = selectExpression.FactoryDelegate;
+					else
+						cacheDictionary.Add(selectExpression.PairId, selectExpression.FactoryDelegate);
+				}
+			}
         }
 
         public bool TryGetFromCache<TSource, TDest>(out Expression<Func<TSource, TDest>> expression)
@@ -328,7 +341,7 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
             Type selectExpressionType = typeof (ISelectExpression<,,>);
             Type dynamicSelectExpressionType = typeof (ISelectDynamicExpression<,,>);
 
-            var relevantInterfaces = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
+            var selectExpressions = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
                 .Select(i =>
                 {
                     var genericArgs = i.GetGenericArguments();
@@ -343,35 +356,48 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                 .Select(
                     g => g.FirstOrDefault(i => i.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
                          ?? g.First(i => i.InterfaceType.GUID == selectExpressionType.GUID)
-                );
+                )
+                .Select(interfaceDescription =>
+                {
+                    var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
+                                     ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
 
-            foreach (var interfaceDescription in relevantInterfaces)
-            {
-                var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
-                                 ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
-
-                Type delegateType = typeof (Func<,>).MakeGenericType(
-					interfaceDescription.GenericArguments[2],
+					Type delegateType = typeof (Func<,>).MakeGenericType(
+						interfaceDescription.GenericArguments[2],
                     typeof (Expression<>).MakeGenericType(
-                        typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
-                        )
-                    );
+							typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
+							)
+						);
 
-                var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
+                    var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
 
-                Dictionary<PairId, Delegate> cacheDictionary;
-                if (interfaceDescription.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
-                    cacheDictionary = _dynamicExpressionFactories;
-                else if (interfaceDescription.InterfaceType.GUID == selectExpressionType.GUID)
-                    cacheDictionary = _expressionFactories;
-                else
-                    throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", interfaceDescription.InterfaceType.FullName));
+                    return new
+                    {
+                        InterfaceType = interfaceDescription.InterfaceType,
+                        PairId = interfaceDescription.PairId,
+                        FactoryDelegate = factoryDelegate
+                    };
+                })
+				.ToList();
 
-                if (cacheDictionary.ContainsKey(interfaceDescription.PairId))
-                    cacheDictionary[interfaceDescription.PairId] = factoryDelegate;
-                else
-                    cacheDictionary.Add(interfaceDescription.PairId, factoryDelegate);
-            }
+			lock(_sync)
+			{
+				foreach (var selectExpression in selectExpressions)
+				{
+					Dictionary<PairId, Delegate> cacheDictionary;
+					if (selectExpression.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+						cacheDictionary = _dynamicExpressionFactories;
+					else if (selectExpression.InterfaceType.GUID == selectExpressionType.GUID)
+						cacheDictionary = _expressionFactories;
+					else
+						throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", selectExpression.InterfaceType.FullName));
+
+					if (cacheDictionary.ContainsKey(selectExpression.PairId))
+						cacheDictionary[selectExpression.PairId] = selectExpression.FactoryDelegate;
+					else
+						cacheDictionary.Add(selectExpression.PairId, selectExpression.FactoryDelegate);
+				}
+			}
         }
 
         public bool TryGetFromCache<TSource, TDest, TParam1>(TParam1 param1, out Expression<Func<TSource, TDest>> expression)
@@ -598,7 +624,7 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
             Type selectExpressionType = typeof (ISelectExpression<,,,>);
             Type dynamicSelectExpressionType = typeof (ISelectDynamicExpression<,,,>);
 
-            var relevantInterfaces = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
+            var selectExpressions = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
                 .Select(i =>
                 {
                     var genericArgs = i.GetGenericArguments();
@@ -613,36 +639,49 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                 .Select(
                     g => g.FirstOrDefault(i => i.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
                          ?? g.First(i => i.InterfaceType.GUID == selectExpressionType.GUID)
-                );
+                )
+                .Select(interfaceDescription =>
+                {
+                    var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
+                                     ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
 
-            foreach (var interfaceDescription in relevantInterfaces)
-            {
-                var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
-                                 ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
-
-                Type delegateType = typeof (Func<,,>).MakeGenericType(
-					interfaceDescription.GenericArguments[2],
-					interfaceDescription.GenericArguments[3],
+					Type delegateType = typeof (Func<,,>).MakeGenericType(
+						interfaceDescription.GenericArguments[2],
+						interfaceDescription.GenericArguments[3],
                     typeof (Expression<>).MakeGenericType(
-                        typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
-                        )
-                    );
+							typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
+							)
+						);
 
-                var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
+                    var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
 
-                Dictionary<PairId, Delegate> cacheDictionary;
-                if (interfaceDescription.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
-                    cacheDictionary = _dynamicExpressionFactories;
-                else if (interfaceDescription.InterfaceType.GUID == selectExpressionType.GUID)
-                    cacheDictionary = _expressionFactories;
-                else
-                    throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", interfaceDescription.InterfaceType.FullName));
+                    return new
+                    {
+                        InterfaceType = interfaceDescription.InterfaceType,
+                        PairId = interfaceDescription.PairId,
+                        FactoryDelegate = factoryDelegate
+                    };
+                })
+				.ToList();
 
-                if (cacheDictionary.ContainsKey(interfaceDescription.PairId))
-                    cacheDictionary[interfaceDescription.PairId] = factoryDelegate;
-                else
-                    cacheDictionary.Add(interfaceDescription.PairId, factoryDelegate);
-            }
+			lock(_sync)
+			{
+				foreach (var selectExpression in selectExpressions)
+				{
+					Dictionary<PairId, Delegate> cacheDictionary;
+					if (selectExpression.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+						cacheDictionary = _dynamicExpressionFactories;
+					else if (selectExpression.InterfaceType.GUID == selectExpressionType.GUID)
+						cacheDictionary = _expressionFactories;
+					else
+						throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", selectExpression.InterfaceType.FullName));
+
+					if (cacheDictionary.ContainsKey(selectExpression.PairId))
+						cacheDictionary[selectExpression.PairId] = selectExpression.FactoryDelegate;
+					else
+						cacheDictionary.Add(selectExpression.PairId, selectExpression.FactoryDelegate);
+				}
+			}
         }
 
         public bool TryGetFromCache<TSource, TDest, TParam1, TParam2>(TParam1 param1, TParam2 param2, out Expression<Func<TSource, TDest>> expression)
