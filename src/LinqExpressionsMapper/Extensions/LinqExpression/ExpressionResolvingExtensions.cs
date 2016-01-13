@@ -6,12 +6,12 @@ namespace System.Linq
 {
     public static class ExpressionResolvingExtensions
     {
-        public static TDest InitFrom<TSource, TDest>(this Expression<Func<TSource, TDest>> expression, TSource source)
+        public static TDest Invoke<TSource, TDest>(this Expression<Func<TSource, TDest>> expression, TSource source)
         {
             return default(TDest);
         }
 
-        public static IEnumerable<TDest> InitEnumerableFrom<TSource, TDest, TSourceEnumerable>(this Expression<Func<TSource, TDest>> expression, TSourceEnumerable source)
+        public static IEnumerable<TDest> InvokeEnumerable<TSource, TDest, TSourceEnumerable>(this Expression<Func<TSource, TDest>> expression, TSourceEnumerable source)
             where TSourceEnumerable : IEnumerable<TSource>
         {
             return default(IEnumerable<TDest>);

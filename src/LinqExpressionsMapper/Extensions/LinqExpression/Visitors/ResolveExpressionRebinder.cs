@@ -8,8 +8,8 @@ namespace LinqExpressionsMapper.Extensions.LinqExpression.Visitors
     internal class ResolveExpressionRebinder: ExpressionVisitor
     {
         private static readonly Type ResolverType = typeof (ExpressionResolvingExtensions);
-        private static readonly string ResolveMethodName = nameof(ExpressionResolvingExtensions.InitFrom);
-        private static readonly string ResolveEnumerableMethodName = nameof(ExpressionResolvingExtensions.InitEnumerableFrom);
+        private static readonly string ResolveMethodName = nameof(ExpressionResolvingExtensions.Invoke);
+        private static readonly string ResolveEnumerableMethodName = nameof(ExpressionResolvingExtensions.InvokeEnumerable);
 
         private static readonly MethodInfo GenericSelectMethodInfo = typeof (Enumerable).GetMethods().First(m => m.Name == nameof(Enumerable.Select) && m.GetParameters()[1].ParameterType.GetGenericArguments().Length == 2);
 
@@ -33,7 +33,7 @@ namespace LinqExpressionsMapper.Extensions.LinqExpression.Visitors
                     return node.Arguments[1].Continue(selectExpression);
                 }
                 else
-                    throw new ArgumentException(String.Format("Can't resolve method {0}", node.Method.Name), "node.Method");
+                    throw new ArgumentException(String.Format("Can't resolve method {0}", node.Method.Name), nameof(node.Method));
             }
 
             return base.VisitMethodCall(node);
