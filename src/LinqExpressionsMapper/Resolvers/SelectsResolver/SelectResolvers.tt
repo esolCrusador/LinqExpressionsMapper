@@ -15,11 +15,28 @@ using LinqExpressionsMapper.Models;
 
 namespace System.Linq.Expressions
 {
+    /// <summary>
+    /// Select Projection expression method container. If you use Mapper for resolving of such expressions, then mappers caches them and returns cached version after first call.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
+<# for (int j = 1; j <= i; j++) { #>
+    /// <typeparam name="TParam<#= j #>">Parameter type.</typeparam>
+<# } #>
     public interface ISelectExpression<TSource, TDest<#= Repeat(1, i, ", in TParam{0}", "") #>>
     {
+		/// <summary>
+        /// Select Projection epxression factory method.
+        /// </summary>
+        /// <returns>Select Projection expression.</returns>
         Expression<Func<TSource, TDest>> GetSelectExpression(<#= GenericArguments(1, i) #>);
     }
 
+    /// <summary>
+    /// Dynamic Select Projection expression method container. If you use Mapper for resolving of such expressions, then factory method only is cached.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectDynamicExpression<TSource, TDest<#= Repeat(1, i, ", in TParam{0}", "") #>>: ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>
     {
     }
@@ -27,7 +44,7 @@ namespace System.Linq.Expressions
 
 namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 {
-    public class SelectResolverWith<#= i #>Params
+    internal class SelectResolverWith<#= i #>Params
     {
         private readonly object _sync = new object();
 
@@ -196,11 +213,18 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
             Dictionary<PairId, LambdaExpression> expressions = GetOrAddParamExpressionsDictionary(<#= ArgumentsPre(1, i) #>add: false);
 
+            Delegate factoryDelegate;
             LambdaExpression lambdaExpression;
 
             if (expressions != null && expressions.TryGetValue(id, out lambdaExpression))
             {
                 expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                return true;
+            }
+            else if (_dynamicExpressionFactories.TryGetValue(id, out factoryDelegate))
+            {
+                expression = ((Func<<#= GenericParamsPre(1, i) #>Expression<Func<TSource, TDest>>>) factoryDelegate)(<#= Arguments(1, i) #>);
 
                 return true;
             }
@@ -216,8 +240,6 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     return true;
                 }
 
-
-                Delegate factoryDelegate;
                 Func<<#= GenericParamsPre(1, i) #>Expression<Func<TSource, TDest>>> factory;
 
                 if (_expressionFactories.TryGetValue(id, out factoryDelegate))

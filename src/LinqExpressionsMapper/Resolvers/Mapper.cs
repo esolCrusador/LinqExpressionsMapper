@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Linq.Expressions;
-using LinqExpressionsMapper.Resolvers.MapperResolver;
+using LinqExpressionsMapper.Resolvers.MappingResolver;
 using LinqExpressionsMapper.Resolvers.SelectsResolver;
 
 namespace LinqExpressionsMapper
@@ -106,11 +105,11 @@ namespace LinqExpressionsMapper
         }
 
         public static Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest, TParam>(TParam param)
-            where TSelect : ISelectExpression<TSource, TDest>, new()
+            where TSelect : ISelectExpression<TSource, TDest, TParam>, new()
         {
             Expression<Func<TSource, TDest>> result;
 
-            if (!SelectResolver.TryGetFromCache(out result))
+            if (!SelectResolverWith1Params.TryGetFromCache(param, out result))
             {
                 var resolver = new TSelect();
                 Register(resolver);
@@ -131,9 +130,9 @@ namespace LinqExpressionsMapper
         {
             TDest dest = new TDest();
 
-            IPropertiesMapper<TSource, TDest> mapper = MappingResolver.GetMapper(source, dest);
+            Action<TSource, TDest> mappingAction = MappingResolver.GetMapper(source, dest);
 
-            mapper.MapProperties(source, dest);
+            mappingAction(source, dest);
 
             return dest;
         }
@@ -142,9 +141,9 @@ namespace LinqExpressionsMapper
             where TDest : class
             where TSource : class
         {
-            IPropertiesMapper<TSource, TDest> mapper = MappingResolver.GetMapper(source, dest);
+            Action<TSource, TDest> mappingAction = MappingResolver.GetMapper(source, dest);
 
-            mapper.MapProperties(source, dest);
+            mappingAction(source, dest);
 
             return dest;
         }
@@ -154,14 +153,15 @@ namespace LinqExpressionsMapper
             where TDest : class
             where TSource : class
         {
-            IPropertiesMapper<TSource, TDest> tMapper;
-            if (!MappingResolver.TryGetMapper(out tMapper))
+            Action<TSource, TDest> mappingAction;
+            if (!MappingResolver.TryGetMapperFromCache(out mappingAction))
             {
-                tMapper = new TMapper();
-                Register(tMapper);
+                var mapper = new TMapper();
+                mappingAction = mapper.MapProperties;
+                Register(mapper);
             }
 
-            tMapper.MapProperties(source, dest);
+            mappingAction(source, dest);
 
             return dest;
         }
@@ -180,17 +180,48 @@ namespace LinqExpressionsMapper
 
         #region Builders
 
+        /// <summary>
+        /// Creates Properties Mapping logic builder.
+        /// </summary>
+        /// <typeparam name="TSource">Source element type.</typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public static PropertiesMappingBuilder<TSource> From<TSource>(TSource source) 
             where TSource : class
         {
             return new PropertiesMappingBuilder<TSource>(source);
         }
 
+        /// <summary>
+        /// Create Projection Expression logic builder.
+        /// </summary>
+        /// <typeparam name="TSource">Source element type.</typeparam>
+        /// <returns>Projection Expression logic builder.</returns>
         public static ExpressionMappingBuilder<TSource> From<TSource>()
         {
             return new ExpressionMappingBuilder<TSource>();
         }
 
         #endregion
+
+        internal static Func<TSource, TDest> GetMapper<TSource, TDest>() 
+            where TDest : new()
+        {
+            return MappingResolver.GetMapper<TSource, TDest>();
+        }
+
+        internal static Func<TSource, TDest> GetMapper<TMapper, TSource, TDest>()
+            where TMapper : IPropertiesMapper<TSource, TDest>, new()
+            where TDest : new()
+        {
+            Func<TSource, TDest> mappingFunc;
+            if (!MappingResolver.TryGetMapperFromCache(out mappingFunc))
+            {
+                Register(new TMapper());
+                mappingFunc = MappingResolver.GetMapper<TSource, TDest>();
+            }
+
+            return mappingFunc;
+        }
     }
 }

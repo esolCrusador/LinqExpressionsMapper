@@ -6,11 +6,25 @@ using LinqExpressionsMapper.Models;
 
 namespace System.Linq.Expressions
 {
+    /// <summary>
+    /// Select Projection expression method container. If you use Mapper for resolving of such expressions, then mappers caches them and returns cached version after first call.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectExpression<TSource, TDest>
     {
+		/// <summary>
+        /// Select Projection epxression factory method.
+        /// </summary>
+        /// <returns>Select Projection expression.</returns>
         Expression<Func<TSource, TDest>> GetSelectExpression();
     }
 
+    /// <summary>
+    /// Dynamic Select Projection expression method container. If you use Mapper for resolving of such expressions, then factory method only is cached.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectDynamicExpression<TSource, TDest>: ISelectExpression<TSource, TDest>
     {
     }
@@ -18,7 +32,7 @@ namespace System.Linq.Expressions
 
 namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 {
-    public class SelectResolverWith0Params
+    internal class SelectResolverWith0Params
     {
         private readonly object _sync = new object();
 
@@ -180,11 +194,18 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
             Dictionary<PairId, LambdaExpression> expressions = GetOrAddParamExpressionsDictionary(add: false);
 
+            Delegate factoryDelegate;
             LambdaExpression lambdaExpression;
 
             if (expressions != null && expressions.TryGetValue(id, out lambdaExpression))
             {
                 expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                return true;
+            }
+            else if (_dynamicExpressionFactories.TryGetValue(id, out factoryDelegate))
+            {
+                expression = ((Func<Expression<Func<TSource, TDest>>>) factoryDelegate)();
 
                 return true;
             }
@@ -200,8 +221,6 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     return true;
                 }
 
-
-                Delegate factoryDelegate;
                 Func<Expression<Func<TSource, TDest>>> factory;
 
                 if (_expressionFactories.TryGetValue(id, out factoryDelegate))
@@ -277,11 +296,26 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
 namespace System.Linq.Expressions
 {
+    /// <summary>
+    /// Select Projection expression method container. If you use Mapper for resolving of such expressions, then mappers caches them and returns cached version after first call.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
+    /// <typeparam name="TParam1">Parameter type.</typeparam>
     public interface ISelectExpression<TSource, TDest, in TParam1>
     {
+		/// <summary>
+        /// Select Projection epxression factory method.
+        /// </summary>
+        /// <returns>Select Projection expression.</returns>
         Expression<Func<TSource, TDest>> GetSelectExpression(TParam1 param1);
     }
 
+    /// <summary>
+    /// Dynamic Select Projection expression method container. If you use Mapper for resolving of such expressions, then factory method only is cached.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectDynamicExpression<TSource, TDest, in TParam1>: ISelectExpression<TSource, TDest, TParam1>
     {
     }
@@ -289,7 +323,7 @@ namespace System.Linq.Expressions
 
 namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 {
-    public class SelectResolverWith1Params
+    internal class SelectResolverWith1Params
     {
         private readonly object _sync = new object();
 
@@ -452,11 +486,18 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
             Dictionary<PairId, LambdaExpression> expressions = GetOrAddParamExpressionsDictionary(param1, add: false);
 
+            Delegate factoryDelegate;
             LambdaExpression lambdaExpression;
 
             if (expressions != null && expressions.TryGetValue(id, out lambdaExpression))
             {
                 expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                return true;
+            }
+            else if (_dynamicExpressionFactories.TryGetValue(id, out factoryDelegate))
+            {
+                expression = ((Func<TParam1, Expression<Func<TSource, TDest>>>) factoryDelegate)(param1);
 
                 return true;
             }
@@ -472,8 +513,6 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     return true;
                 }
 
-
-                Delegate factoryDelegate;
                 Func<TParam1, Expression<Func<TSource, TDest>>> factory;
 
                 if (_expressionFactories.TryGetValue(id, out factoryDelegate))
@@ -560,11 +599,27 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
 namespace System.Linq.Expressions
 {
+    /// <summary>
+    /// Select Projection expression method container. If you use Mapper for resolving of such expressions, then mappers caches them and returns cached version after first call.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
+    /// <typeparam name="TParam1">Parameter type.</typeparam>
+    /// <typeparam name="TParam2">Parameter type.</typeparam>
     public interface ISelectExpression<TSource, TDest, in TParam1, in TParam2>
     {
+		/// <summary>
+        /// Select Projection epxression factory method.
+        /// </summary>
+        /// <returns>Select Projection expression.</returns>
         Expression<Func<TSource, TDest>> GetSelectExpression(TParam1 param1, TParam2 param2);
     }
 
+    /// <summary>
+    /// Dynamic Select Projection expression method container. If you use Mapper for resolving of such expressions, then factory method only is cached.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectDynamicExpression<TSource, TDest, in TParam1, in TParam2>: ISelectExpression<TSource, TDest, TParam1, TParam2>
     {
     }
@@ -572,7 +627,7 @@ namespace System.Linq.Expressions
 
 namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 {
-    public class SelectResolverWith2Params
+    internal class SelectResolverWith2Params
     {
         private readonly object _sync = new object();
 
@@ -736,11 +791,18 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
             Dictionary<PairId, LambdaExpression> expressions = GetOrAddParamExpressionsDictionary(param1, param2, add: false);
 
+            Delegate factoryDelegate;
             LambdaExpression lambdaExpression;
 
             if (expressions != null && expressions.TryGetValue(id, out lambdaExpression))
             {
                 expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                return true;
+            }
+            else if (_dynamicExpressionFactories.TryGetValue(id, out factoryDelegate))
+            {
+                expression = ((Func<TParam1, TParam2, Expression<Func<TSource, TDest>>>) factoryDelegate)(param1, param2);
 
                 return true;
             }
@@ -756,8 +818,6 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     return true;
                 }
 
-
-                Delegate factoryDelegate;
                 Func<TParam1, TParam2, Expression<Func<TSource, TDest>>> factory;
 
                 if (_expressionFactories.TryGetValue(id, out factoryDelegate))
