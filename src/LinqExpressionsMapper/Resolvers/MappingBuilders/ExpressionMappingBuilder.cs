@@ -35,16 +35,7 @@ namespace LinqExpressionsMapper
         {
             return Mapper.GetExternalExpression<TSource, TDest>();
         }
-        /// <summary>
-        /// Gets Parametrised Projection expression from source to destanation passing parameter.  Expression: registered select expression container or TDest as select resolver.
-        /// </summary>
-        /// <typeparam name="TParam">Parameter type.</typeparam>
-        /// <param name="param">Parameter value.</param>
-        /// <returns>Projection expression.</returns>
-        public Expression<Func<TSource, TDest>> GetExpression<TParam>(TParam param)
-        {
-            return Mapper.GetExternalExpression<TSource, TDest, TParam>(param);
-        }
+
         /// <summary>
         /// Sets select expression container type. If Projection expression is not registered yet that activated TSelect() will be used for registration.
         /// </summary>
@@ -59,13 +50,11 @@ namespace LinqExpressionsMapper
         /// <summary>
         /// Sets select expression container type. If Projection expression is not registered yet that activated TSelect() will be used for registration.
         /// </summary>
-        /// <typeparam name="TSelect">Select expression container type.</typeparam>
         /// <typeparam name="TParam">Parameter type.</typeparam>
         /// <returns>Builder of projection.</returns>
-        public ExpressionMappingBuilder<TSelect, TSource, TDest, TParam> Using<TSelect, TParam>()
-            where TSelect : ISelectExpression<TSource, TDest, TParam>, new()
+        public ExpressionWithParamMappingBuilder<TSource, TDest, TParam> WithParam<TParam>(TParam param)
         {
-            return new ExpressionMappingBuilder<TSelect, TSource, TDest, TParam>();
+            return new ExpressionWithParamMappingBuilder<TSource, TDest, TParam>(param);
         }
 
         /// <summary>
@@ -111,22 +100,83 @@ namespace LinqExpressionsMapper
     /// <summary>
     /// Builder of Projection logic.
     /// </summary>
-    /// <typeparam name="TSelect">Projection select expression container.</typeparam>
     /// <typeparam name="TSource">Source element type.</typeparam>
     /// <typeparam name="TDest">Dest element type.</typeparam>
     /// <typeparam name="TParam">Parameter type.</typeparam>
-    public struct ExpressionMappingBuilder<TSelect, TSource, TDest, TParam>
+    public struct ExpressionWithParamMappingBuilder<TSource, TDest, TParam>
+    {
+        private readonly TParam _param;
+
+        internal ExpressionWithParamMappingBuilder(TParam param)
+        {
+            _param = param;
+        }
+
+        /// <summary>
+        /// Gets Parametrised Projection expression from source to destanation passing parameter.  Expression: registered select expression container or TDest as select resolver.
+        /// </summary>
+        /// <returns>Projection expression.</returns>
+        public Expression<Func<TSource, TDest>> GetExpression()
+        {
+            return Mapper.GetExternalExpression<TSource, TDest, TParam>(_param);
+        }
+
+        /// <summary>
+        /// Sets select expression container type. If Projection expression is not registered yet that activated TSelect() will be used for registration.
+        /// </summary>
+        /// <typeparam name="TSelect">Select expression container type.</typeparam>
+        /// <returns>Builder of projection.</returns>
+        public ExpressionWithParamMappingBuilder<TSelect, TSource, TDest, TParam> Using<TSelect>()
+            where TSelect : ISelectExpression<TSource, TDest, TParam>, new()
+        {
+            return new ExpressionWithParamMappingBuilder<TSelect, TSource, TDest, TParam>(_param);
+        }
+
+        /// <summary>
+        /// Converts MappingBuilder to result expression.
+        /// </summary>
+        /// <param name="mappingBuilder">Builder of projection.</param>
+        /// <returns>Result Projection expression.</returns>
+        public static implicit operator Expression<Func<TSource, TDest>>(ExpressionWithParamMappingBuilder<TSource, TDest, TParam> mappingBuilder)
+        {
+            return mappingBuilder.GetExpression();
+        }
+    }
+
+    /// <summary>
+    /// Builder of Projection logic.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Dest element type.</typeparam>
+    /// <typeparam name="TParam">Parameter type.</typeparam>
+    /// <typeparam name="TSelect">Projection select expression container.</typeparam>
+    public struct ExpressionWithParamMappingBuilder<TSelect, TSource, TDest, TParam>
         where TSelect : ISelectExpression<TSource, TDest, TParam>, new()
     {
-        /// <summary>
-        /// Gets Parametrised Projections expression using TSelect if Projection expression container is not registered yet.
-        /// </summary>
-        /// <typeparam name="TParam">Projection epxression parameter type.</typeparam>
-        /// <param name="param">Projection epxression parameter value.</param>
-        /// <returns>Projection expression.</returns>
-        public Expression<Func<TSource, TDest>> GetExpression(TParam param)
+        private readonly TParam _param;
+
+        internal ExpressionWithParamMappingBuilder(TParam param)
         {
-            return Mapper.GetExpression<TSelect, TSource, TDest, TParam>(param);
+            _param = param;
+        }
+
+        /// <summary>
+        /// Gets Parametrised Projection expression from source to destanation passing parameter.  Expression: registered select expression container or TDest as select resolver.
+        /// </summary>
+        /// <returns>Projection expression.</returns>
+        public Expression<Func<TSource, TDest>> GetExpression()
+        {
+            return Mapper.GetExpression<TSelect, TSource, TDest, TParam>(_param);
+        }
+
+        /// <summary>
+        /// Converts MappingBuilder to result expression.
+        /// </summary>
+        /// <param name="mappingBuilder">Builder of projection.</param>
+        /// <returns>Result Projection expression.</returns>
+        public static implicit operator Expression<Func<TSource, TDest>>(ExpressionWithParamMappingBuilder<TSelect, TSource, TDest, TParam> mappingBuilder)
+        {
+            return mappingBuilder.GetExpression();
         }
     }
 }

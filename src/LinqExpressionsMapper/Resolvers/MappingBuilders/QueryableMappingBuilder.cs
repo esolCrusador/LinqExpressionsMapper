@@ -55,6 +55,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         {
             _sourceQueryable = sourceQueryable;
             QueryableFactory = queryableFactory;
+
             QueryableFactory.Create = GetQueryable;
         }
 
@@ -63,11 +64,6 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         private IQueryable<TDest> GetQueryable()
         {
             return _sourceQueryable.Select(Mapper.GetExternalExpression<TSource, TDest>());
-        }
-
-        private IQueryable<TDest> GetQueryable<TParam>(TParam param)
-        {
-            return _sourceQueryable.Select(Mapper.From<TSource>().To<TDest>().GetExpression(param));
         }
 
         /// <summary>
@@ -82,26 +78,13 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         }
 
         /// <summary>
-        /// Sets select expression container type. If Projection expression is not registered yet that activated TSelect() will be used for registration. 
-        /// </summary>
-        /// <typeparam name="TSelect">Projection select expression container.</typeparam>
-        /// <typeparam name="TParam">Parameter type.</typeparam>
-        /// <returns>Builder of projection.</returns>
-        public QueryableMappingBuilder<TSelect, TSource, TDest, TParam> Using<TSelect, TParam>()
-            where TSelect : ISelectExpression<TSource, TDest, TParam>, new()
-        {
-            return new QueryableMappingBuilder<TSelect, TSource, TDest, TParam>(_sourceQueryable, QueryableFactory);
-        }
-
-        /// <summary>
         /// Sets param of parametrised projection expression factory.
         /// </summary>
         /// <typeparam name="TParam">Param type.</typeparam>
         /// <param name="param">Param value.</param>
-        public void WithParam<TParam>(TParam param)
+        public QueryableWithParamMappingBuilder<TSource, TDest, TParam> WithParam<TParam>(TParam param)
         {
-            Func<TParam, IQueryable<TDest>> getQueryable = GetQueryable;
-            QueryableFactory.Create = () => getQueryable(param);
+            return new QueryableWithParamMappingBuilder<TSource, TDest, TParam>(_sourceQueryable, QueryableFactory, param);
         }
     }
 
@@ -120,6 +103,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         {
             _sourceQueryable = sourceQueryable;
             QueryableFactory = queryableFactory;
+
             QueryableFactory.Create = GetQueryable;
         }
 
@@ -136,35 +120,67 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
     /// </summary>
     /// <typeparam name="TSource">Source element type.</typeparam>
     /// <typeparam name="TDest">Destanation element type.</typeparam>
-    /// <typeparam name="TSelect">Project expression container type.</typeparam>
     /// <typeparam name="TParam">Parameter type.</typeparam>
-    public struct QueryableMappingBuilder<TSelect, TSource, TDest, TParam>
-        where TSelect : ISelectExpression<TSource, TDest, TParam>, new()
+    public struct QueryableWithParamMappingBuilder<TSource, TDest, TParam>
     {
         private readonly IQueryable<TSource> _sourceQueryable;
+        private readonly TParam _param;
 
-        internal QueryableMappingBuilder(IQueryable<TSource> sourceQueryable, QueryableFactory<TDest> queryableFactory)
+        internal QueryableWithParamMappingBuilder(IQueryable<TSource> sourceQueryable, QueryableFactory<TDest> queryableFactory, TParam param)
         {
             _sourceQueryable = sourceQueryable;
             QueryableFactory = queryableFactory;
+            _param = param;
+
+            QueryableFactory.Create = GetQueryable;
         }
 
         internal QueryableFactory<TDest> QueryableFactory { get; private set; }
 
-        private IQueryable<TDest> GetQueryable(TParam param)
+        private IQueryable<TDest> GetQueryable()
         {
-            return _sourceQueryable.Select(Mapper.From<TSource>().To<TDest>().Using<TSelect, TParam>().GetExpression(param));
+            return _sourceQueryable.Select(Mapper.GetExternalExpression<TSource, TDest, TParam>(_param));
         }
 
         /// <summary>
-        /// Sets param of parametrised projection expression factory.
+        /// Sets select expression container type. If Projection expression is not registered yet that activated TSelect() will be used for registration. 
         /// </summary>
-        /// <typeparam name="TParam">Param type.</typeparam>
-        /// <param name="param">Param value.</param>
-        public void WithParam(TParam param)
+        /// <typeparam name="TSelect">Projection select expression container.</typeparam>
+        /// <returns>Builder of projection.</returns>
+        public QueryableWithParamMappingBuilder<TSelect, TSource, TDest, TParam> Using<TSelect>()
+            where TSelect : ISelectExpression<TSource, TDest, TParam>, new()
         {
-            Func<TParam, IQueryable<TDest>> getQueryable = GetQueryable;
-            QueryableFactory.Create = () => getQueryable(param);
+            return new QueryableWithParamMappingBuilder<TSelect, TSource, TDest, TParam>(_sourceQueryable, QueryableFactory, _param);
+        }
+    }
+
+    /// <summary>
+    /// Builder of query projection logic.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
+    /// <typeparam name="TParam">Parameter type.</typeparam>
+    /// <typeparam name="TSelect">Project expression container type.</typeparam>
+    public struct QueryableWithParamMappingBuilder<TSelect, TSource, TDest, TParam>
+        where TSelect: ISelectExpression<TSource, TDest, TParam>, new()
+    {
+        private readonly IQueryable<TSource> _sourceQueryable;
+        private readonly TParam _param;
+
+        internal QueryableWithParamMappingBuilder(IQueryable<TSource> sourceQueryable, QueryableFactory<TDest> queryableFactory, TParam param)
+        {
+            _sourceQueryable = sourceQueryable;
+            QueryableFactory = queryableFactory;
+            _param = param;
+
+            QueryableFactory.Create = GetQueryable;
+        }
+
+        internal QueryableFactory<TDest> QueryableFactory { get; private set; }
+
+        private IQueryable<TDest> GetQueryable()
+        {
+            return _sourceQueryable.Select(Mapper.GetExpression<TSelect, TSource, TDest, TParam>(_param));
         }
     }
 

@@ -20,31 +20,60 @@ namespace LinqExpressionsMapper
 
         #region Registration
 
+        /// <summary>
+        /// Registers Select Project Expression.
+        /// </summary>
+        /// <typeparam name="TSource">Source param type.</typeparam>
+        /// <typeparam name="TDest">Destanation param type.</typeparam>
+        /// <param name="selectExpression">Select Projection Expression factory.</param>
         public static void Register<TSource, TDest>(ISelectExpression<TSource, TDest> selectExpression)
         {
             if (!RegisterAllIfMultipleMappings(selectExpression))
                 SelectResolver.Register(selectExpression);
         }
 
+        /// <summary>
+        /// Registers Select Projection Expression Factory.
+        /// </summary>
+        /// <typeparam name="TSource">Source param type.</typeparam>
+        /// <typeparam name="TDest">Destanation param type.</typeparam>
+        /// <param name="selectDynamicExpression">Select Dynamic Projection Expression factory.</param>
         public static void Register<TSource, TDest>(ISelectDynamicExpression<TSource, TDest> selectDynamicExpression)
         {
             if (!RegisterAllIfMultipleMappings(selectDynamicExpression))
                 SelectResolver.Register(selectDynamicExpression);
         }
 
+        /// <summary>
+        /// Registers Select Project Expression with one Param.
+        /// </summary>
+        /// <typeparam name="TSource">Source param type.</typeparam>
+        /// <typeparam name="TDest">Destanation param type.</typeparam>
+        /// <typeparam name="TParam">Parameter param type.</typeparam>
+        /// <param name="selectExpression">Select Projection Expression factory.</param>
         public static void Register<TSource, TDest, TParam>(ISelectExpression<TSource, TDest, TParam> selectExpression)
         {
             if (!RegisterAllIfMultipleMappings(selectExpression))
                 SelectResolverWith1Params.Register(selectExpression);
         }
 
+        /// <summary>
+        /// Registers Properties Mapping Delegate.
+        /// </summary>
+        /// <typeparam name="TSource">Source param type.</typeparam>
+        /// <typeparam name="TDest">Destanation param type.</typeparam>
+        /// <param name="propertiesMapper">Properties Mapping Delegate factory.</param>
         public static void Register<TSource, TDest>(IPropertiesMapper<TSource, TDest> propertiesMapper)
         {
             if (!RegisterAllIfMultipleMappings(propertiesMapper))
                 MappingResolver.Register(propertiesMapper);
         }
 
-        public static void RegisterAll(object mapper)
+        /// <summary>
+        /// Registers all Properties Mappings & Projection Expressions factory methods of instnce.
+        /// </summary>
+        /// <param name="mapper">Multiply Mapping factories container.</param>
+        public static void RegisterAll(IMultipleMappings mapper)
         {
             var mapperType = mapper.GetType();
             var implementedInterfaces = mapperType.GetInterfaces();
@@ -58,10 +87,36 @@ namespace LinqExpressionsMapper
         {
             if (mapper is IMultipleMappings)
             {
-                RegisterAll(mapper);
+                RegisterAll((IMultipleMappings)mapper);
                 return true;
             }
             return false;
+        }
+
+        #endregion
+
+        #region Builders
+
+        /// <summary>
+        /// Creates Properties Mapping logic builder.
+        /// </summary>
+        /// <typeparam name="TSource">Source element type.</typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static PropertiesMappingBuilder<TSource> From<TSource>(TSource source)
+            where TSource : class
+        {
+            return new PropertiesMappingBuilder<TSource>(source);
+        }
+
+        /// <summary>
+        /// Create Projection Expression logic builder.
+        /// </summary>
+        /// <typeparam name="TSource">Source element type.</typeparam>
+        /// <returns>Projection Expression logic builder.</returns>
+        public static ExpressionMappingBuilder<TSource> From<TSource>()
+        {
+            return new ExpressionMappingBuilder<TSource>();
         }
 
         #endregion
@@ -176,35 +231,7 @@ namespace LinqExpressionsMapper
             return Map<TMapper, TSource, TDest>(source, dest);
         }
 
-        #endregion
-
-        #region Builders
-
-        /// <summary>
-        /// Creates Properties Mapping logic builder.
-        /// </summary>
-        /// <typeparam name="TSource">Source element type.</typeparam>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public static PropertiesMappingBuilder<TSource> From<TSource>(TSource source) 
-            where TSource : class
-        {
-            return new PropertiesMappingBuilder<TSource>(source);
-        }
-
-        /// <summary>
-        /// Create Projection Expression logic builder.
-        /// </summary>
-        /// <typeparam name="TSource">Source element type.</typeparam>
-        /// <returns>Projection Expression logic builder.</returns>
-        public static ExpressionMappingBuilder<TSource> From<TSource>()
-        {
-            return new ExpressionMappingBuilder<TSource>();
-        }
-
-        #endregion
-
-        internal static Func<TSource, TDest> GetMapper<TSource, TDest>() 
+        internal static Func<TSource, TDest> GetMapper<TSource, TDest>()
             where TDest : new()
         {
             return MappingResolver.GetMapper<TSource, TDest>();
@@ -223,5 +250,7 @@ namespace LinqExpressionsMapper
 
             return mappingFunc;
         }
+
+        #endregion
     }
 }

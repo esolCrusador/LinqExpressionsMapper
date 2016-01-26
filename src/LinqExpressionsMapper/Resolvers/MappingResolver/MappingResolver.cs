@@ -83,6 +83,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingResolver
                 {
                     mapAction = GetMapper(source, dest);
                 }
+                mapAction(source, dest);
 
                 return dest;
             };
