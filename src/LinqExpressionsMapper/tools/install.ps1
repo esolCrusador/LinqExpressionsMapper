@@ -47,6 +47,7 @@ Write-Host Updating API...
 							 "MapSelect\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
 							 "MapSelect\<(?<TMapper>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
 							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
+							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)"
 							 "ResolveSelect(External)?\<(?<TSelect>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
 							 "ResolveSelect(External)?\<(?<TSelect>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)"
 
@@ -61,6 +62,7 @@ Write-Host Updating API...
 					   'Map<${TSource}>().To<${TDest}>()',
 					   'Map<${TSource}>().To<${TDest}>(m=>m.Using<${TMapper}>())',
 					   'Project<${TSource}>().To<${TDest}>()',
+					   'Project<${TSource}>().To<${TDest}>(p=>p.WithParam<${TParam}>(${arg1}))',
 					   'Project<${TSource}>().To<${TDest}>(p=>p.Using<${TSelect}>())',
 					   'Project<${TSource}>().To<${TDest}>(p=>p.WithParam<${TParam}>(${arg1}))'
 
