@@ -1,4 +1,4 @@
-﻿param($installPath, $toolsPath, $package, $project)
+﻿#param($installPath, $toolsPath, $package, $project)
 
 # PS script version check.
 $currentVersion = 1;
