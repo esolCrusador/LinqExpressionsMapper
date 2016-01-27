@@ -36,20 +36,20 @@ else
 {
 Write-Host Updating API...
 
-[string[]] $replaceRegexes = "Mapper.Map\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)", 
-							 "Mapper.Map\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+), ? (?<arg2>[\w+_\.\d\[\]]+)\)",
-							 "Mapper.Map\<(?<TMapper>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\((?<arg1>[\w\d\[\]]+)\)",
-							 "Mapper.Map\<(?<TMapper>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\((?<arg1>[\w\d\[\]]+), ? (?<arg2>[\w+_\.\d\[\]]+)\)",
-							 "Mapper.Get(External)?Expression\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
-							 "Mapper.Get(External)?Expression\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)",
-							 "Mapper.Get(External)?Expression\<(?<TSelect>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
-							 "Mapper.Get(External)?Expression\<(?<TSelect>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)",
-							 "MapSelect\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
-							 "MapSelect\<(?<TMapper>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
-							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
-							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)",
-							 "ResolveSelect(External)?\<(?<TSelect>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
-							 "ResolveSelect(External)?\<(?<TSelect>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)"
+[string[]] $replaceRegexes = "Mapper.Map\<(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\((?<arg1>[\w+_\.\d\[\]\<\>\(\) ]+)\)", 
+							 "Mapper.Map\<(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\((?<arg1>[\w+_\.\d\[\]\<\>\(\) ]+), ? (?<arg2>[\w+_\.\d\[\]\<\>\(\) ]+)\)",
+							 "Mapper.Map\<(?<TMapper>[\w+_\.\<\>]+), ?(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\((?<arg1>[\w+_\.\d\[\]\<\>\(\) ]+)\)",
+							 "Mapper.Map\<(?<TMapper>[\w+_\.\<\>]+), ?(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\((?<arg1>[\w+_\.\d\[\]\<\>\(\) ]+), ? (?<arg2>[\w+_\.\d\[\]\<\>\(\) ]+)\)",
+							 "Mapper.Get(External)?Expression\<(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\( ?\)",
+							 "Mapper.Get(External)?Expression\<(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+), ?(?<TParam>[\w+_\.\<\>]+)\>\((?<arg1>[\w+_\.\d\[\]\<\>\(\) ]+)\)",
+							 "Mapper.Get(External)?Expression\<(?<TSelect>[\w+_\.\<\>]+), ?(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\( ?\)",
+							 "Mapper.Get(External)?Expression\<(?<TSelect>[\w+_\.\<\>]+), ?(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+), ?(?<TParam>[\w+_\.\<\>]+)\>\((?<arg1>[\w+_\.\d\[\]\<\>\(\) ]+)\)",
+							 "MapSelect\<(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\( ?\)",
+							 "MapSelect\<(?<TMapper>[\w+_\.\<\>]+), ?(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\( ?\)",
+							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\( ?\)",
+							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+), ?(?<TParam>[\w+_\.\<\>]+)\>\((?<arg1>[\w+_\.\d\[\]\<\>\(\) ]+)\)",
+							 "ResolveSelect(External)?\<(?<TSelect>[\w+_\.\<\>]+), ?(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+)\>\( ?\)",
+							 "ResolveSelect(External)?\<(?<TSelect>[\w+_\.\<\>]+), ?(?<TSource>[\w+_\.\<\>]+), ?(?<TDest>[\w+_\.\<\>]+), ?(?<TParam>[\w+_\.\<\>]+)\>\((?<arg1>[\w+_\.\d\[\]\<\>\(\) ]+)\)"
 
 [string[]] $replaces = 'Mapper.From<${TSource}>(${arg1}).To<${TDest}>().Map()',
 					   'Mapper.From<${TSource}>(${arg1}).To<${TDest}>(${arg2}).Map()',
