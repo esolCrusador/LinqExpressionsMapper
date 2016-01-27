@@ -123,27 +123,27 @@ namespace LinqExpressionsMapper
 
         #region SelectWith Resolver
 
-        public static Expression<Func<TSource, TDist>> GetExternalExpression<TSource, TDist>()
+        internal static Expression<Func<TSource, TDest>> GetExternalExpression<TSource, TDest>()
         {
-            return SelectResolver.GetExternalExpression<TSource, TDist>();
+            return SelectResolver.GetExternalExpression<TSource, TDest>();
         }
 
-        public static Expression<Func<TSource, TDest>> GetExternalExpression<TSource, TDest, TParam>(TParam param)
+        internal static Expression<Func<TSource, TDest>> GetExternalExpression<TSource, TDest, TParam>(TParam param)
         {
             return SelectResolverWith1Params.GetExternalExpression<TSource, TDest, TParam>(param);
         }
 
-        public static Expression<Func<TSource, TDest>> GetExpression<TSource, TDest>() where TDest : ISelectExpression<TSource, TDest>, new()
+        internal static Expression<Func<TSource, TDest>> GetExpression<TSource, TDest>() where TDest : ISelectExpression<TSource, TDest>, new()
         {
             return SelectResolver.GetExpression<TSource, TDest>();
         }
 
-        public static Expression<Func<TSource, TDest>> GetExpression<TSource, TDest, TParam>(TParam param) where TDest : ISelectExpression<TSource, TDest, TParam>, new()
+        internal static Expression<Func<TSource, TDest>> GetExpression<TSource, TDest, TParam>(TParam param) where TDest : ISelectExpression<TSource, TDest, TParam>, new()
         {
             return SelectResolverWith1Params.GetExpression<TSource, TDest, TParam>(param);
         }
 
-        public static Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest>()
+        internal static Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest>()
             where TSelect : ISelectExpression<TSource, TDest>, new()
         {
             Expression<Func<TSource, TDest>> result;
@@ -159,7 +159,7 @@ namespace LinqExpressionsMapper
             return result;
         }
 
-        public static Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest, TParam>(TParam param)
+        internal static Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest, TParam>(TParam param)
             where TSelect : ISelectExpression<TSource, TDest, TParam>, new()
         {
             Expression<Func<TSource, TDest>> result;
@@ -179,7 +179,7 @@ namespace LinqExpressionsMapper
 
         #region Mapping Resolver
 
-        public static TDest Map<TSource, TDest>(TSource source)
+        internal static TDest Map<TSource, TDest>(TSource source)
             where TDest : class, new()
             where TSource : class
         {
@@ -192,7 +192,7 @@ namespace LinqExpressionsMapper
             return dest;
         }
 
-        public static TDest Map<TSource, TDest>(TSource source, TDest dest)
+        internal static TDest Map<TSource, TDest>(TSource source, TDest dest)
             where TDest : class
             where TSource : class
         {
@@ -203,7 +203,7 @@ namespace LinqExpressionsMapper
             return dest;
         }
 
-        public static TDest Map<TMapper, TSource, TDest>(TSource source, TDest dest)
+        internal static TDest Map<TMapper, TSource, TDest>(TSource source, TDest dest)
             where TMapper : IPropertiesMapper<TSource, TDest>, new()
             where TDest : class
             where TSource : class
@@ -221,7 +221,7 @@ namespace LinqExpressionsMapper
             return dest;
         }
 
-        public static TDest Map<TMapper, TSource, TDest>(TSource source)
+        internal static TDest Map<TMapper, TSource, TDest>(TSource source)
             where TMapper : IPropertiesMapper<TSource, TDest>, new()
             where TDest : class, new()
             where TSource : class
