@@ -6,11 +6,25 @@ using LinqExpressionsMapper.Models;
 
 namespace System.Linq.Expressions
 {
+    /// <summary>
+    /// Select Projection expression method container. If you use Mapper for resolving of such expressions, then mappers caches them and returns cached version after first call.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectExpression<TSource, TDest>
     {
+		/// <summary>
+        /// Select Projection epxression factory method.
+        /// </summary>
+        /// <returns>Select Projection expression.</returns>
         Expression<Func<TSource, TDest>> GetSelectExpression();
     }
 
+    /// <summary>
+    /// Dynamic Select Projection expression method container. If you use Mapper for resolving of such expressions, then factory method only is cached.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectDynamicExpression<TSource, TDest>: ISelectExpression<TSource, TDest>
     {
     }
@@ -18,7 +32,7 @@ namespace System.Linq.Expressions
 
 namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 {
-    public class SelectResolverWith0Params
+    internal class SelectResolverWith0Params
     {
         private readonly object _sync = new object();
 
@@ -63,6 +77,69 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     _dynamicExpressionFactories.Add(id, factory);
                 }
             }
+        }
+
+        public void RegisterAll(object mapper, Type mapperType, Type[] implementedInterfaces)
+        {
+            Type selectExpressionType = typeof (ISelectExpression<,>);
+            Type dynamicSelectExpressionType = typeof (ISelectDynamicExpression<,>);
+
+            var selectExpressions = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
+                .Select(i =>
+                {
+                    var genericArgs = i.GetGenericArguments();
+                    return new
+                    {
+                        InterfaceType = i,
+						GenericArguments = genericArgs,
+                        PairId = PairId.GetId(genericArgs[0], genericArgs[1])
+                    };
+                })
+                .GroupBy(i => i.PairId)
+                .Select(
+                    g => g.FirstOrDefault(i => i.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+                         ?? g.First(i => i.InterfaceType.GUID == selectExpressionType.GUID)
+                )
+                .Select(interfaceDescription =>
+                {
+                    var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
+                                     ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
+
+					Type delegateType = typeof (Func<>).MakeGenericType(
+                    typeof (Expression<>).MakeGenericType(
+							typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
+							)
+						);
+
+                    var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
+
+                    return new
+                    {
+                        InterfaceType = interfaceDescription.InterfaceType,
+                        PairId = interfaceDescription.PairId,
+                        FactoryDelegate = factoryDelegate
+                    };
+                })
+				.ToList();
+
+			lock(_sync)
+			{
+				foreach (var selectExpression in selectExpressions)
+				{
+					Dictionary<PairId, Delegate> cacheDictionary;
+					if (selectExpression.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+						cacheDictionary = _dynamicExpressionFactories;
+					else if (selectExpression.InterfaceType.GUID == selectExpressionType.GUID)
+						cacheDictionary = _expressionFactories;
+					else
+						throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", selectExpression.InterfaceType.FullName));
+
+					if (cacheDictionary.ContainsKey(selectExpression.PairId))
+						cacheDictionary[selectExpression.PairId] = selectExpression.FactoryDelegate;
+					else
+						cacheDictionary.Add(selectExpression.PairId, selectExpression.FactoryDelegate);
+				}
+			}
         }
 
         public bool TryGetFromCache<TSource, TDest>(out Expression<Func<TSource, TDest>> expression)
@@ -117,11 +194,18 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
             Dictionary<PairId, LambdaExpression> expressions = GetOrAddParamExpressionsDictionary(add: false);
 
+            Delegate factoryDelegate;
             LambdaExpression lambdaExpression;
 
             if (expressions != null && expressions.TryGetValue(id, out lambdaExpression))
             {
                 expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                return true;
+            }
+            else if (_dynamicExpressionFactories.TryGetValue(id, out factoryDelegate))
+            {
+                expression = ((Func<Expression<Func<TSource, TDest>>>) factoryDelegate)();
 
                 return true;
             }
@@ -137,8 +221,6 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     return true;
                 }
 
-
-                Delegate factoryDelegate;
                 Func<Expression<Func<TSource, TDest>>> factory;
 
                 if (_expressionFactories.TryGetValue(id, out factoryDelegate))
@@ -214,11 +296,26 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
 namespace System.Linq.Expressions
 {
+    /// <summary>
+    /// Select Projection expression method container. If you use Mapper for resolving of such expressions, then mappers caches them and returns cached version after first call.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
+    /// <typeparam name="TParam1">Parameter type.</typeparam>
     public interface ISelectExpression<TSource, TDest, in TParam1>
     {
+		/// <summary>
+        /// Select Projection epxression factory method.
+        /// </summary>
+        /// <returns>Select Projection expression.</returns>
         Expression<Func<TSource, TDest>> GetSelectExpression(TParam1 param1);
     }
 
+    /// <summary>
+    /// Dynamic Select Projection expression method container. If you use Mapper for resolving of such expressions, then factory method only is cached.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectDynamicExpression<TSource, TDest, in TParam1>: ISelectExpression<TSource, TDest, TParam1>
     {
     }
@@ -226,7 +323,7 @@ namespace System.Linq.Expressions
 
 namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 {
-    public class SelectResolverWith1Params
+    internal class SelectResolverWith1Params
     {
         private readonly object _sync = new object();
 
@@ -271,6 +368,70 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     _dynamicExpressionFactories.Add(id, factory);
                 }
             }
+        }
+
+        public void RegisterAll(object mapper, Type mapperType, Type[] implementedInterfaces)
+        {
+            Type selectExpressionType = typeof (ISelectExpression<,,>);
+            Type dynamicSelectExpressionType = typeof (ISelectDynamicExpression<,,>);
+
+            var selectExpressions = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
+                .Select(i =>
+                {
+                    var genericArgs = i.GetGenericArguments();
+                    return new
+                    {
+                        InterfaceType = i,
+						GenericArguments = genericArgs,
+                        PairId = PairId.GetId(genericArgs[0], genericArgs[1])
+                    };
+                })
+                .GroupBy(i => i.PairId)
+                .Select(
+                    g => g.FirstOrDefault(i => i.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+                         ?? g.First(i => i.InterfaceType.GUID == selectExpressionType.GUID)
+                )
+                .Select(interfaceDescription =>
+                {
+                    var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
+                                     ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
+
+					Type delegateType = typeof (Func<,>).MakeGenericType(
+						interfaceDescription.GenericArguments[2],
+                    typeof (Expression<>).MakeGenericType(
+							typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
+							)
+						);
+
+                    var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
+
+                    return new
+                    {
+                        InterfaceType = interfaceDescription.InterfaceType,
+                        PairId = interfaceDescription.PairId,
+                        FactoryDelegate = factoryDelegate
+                    };
+                })
+				.ToList();
+
+			lock(_sync)
+			{
+				foreach (var selectExpression in selectExpressions)
+				{
+					Dictionary<PairId, Delegate> cacheDictionary;
+					if (selectExpression.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+						cacheDictionary = _dynamicExpressionFactories;
+					else if (selectExpression.InterfaceType.GUID == selectExpressionType.GUID)
+						cacheDictionary = _expressionFactories;
+					else
+						throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", selectExpression.InterfaceType.FullName));
+
+					if (cacheDictionary.ContainsKey(selectExpression.PairId))
+						cacheDictionary[selectExpression.PairId] = selectExpression.FactoryDelegate;
+					else
+						cacheDictionary.Add(selectExpression.PairId, selectExpression.FactoryDelegate);
+				}
+			}
         }
 
         public bool TryGetFromCache<TSource, TDest, TParam1>(TParam1 param1, out Expression<Func<TSource, TDest>> expression)
@@ -325,11 +486,18 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
             Dictionary<PairId, LambdaExpression> expressions = GetOrAddParamExpressionsDictionary(param1, add: false);
 
+            Delegate factoryDelegate;
             LambdaExpression lambdaExpression;
 
             if (expressions != null && expressions.TryGetValue(id, out lambdaExpression))
             {
                 expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                return true;
+            }
+            else if (_dynamicExpressionFactories.TryGetValue(id, out factoryDelegate))
+            {
+                expression = ((Func<TParam1, Expression<Func<TSource, TDest>>>) factoryDelegate)(param1);
 
                 return true;
             }
@@ -345,8 +513,6 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     return true;
                 }
 
-
-                Delegate factoryDelegate;
                 Func<TParam1, Expression<Func<TSource, TDest>>> factory;
 
                 if (_expressionFactories.TryGetValue(id, out factoryDelegate))
@@ -433,11 +599,27 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
 namespace System.Linq.Expressions
 {
+    /// <summary>
+    /// Select Projection expression method container. If you use Mapper for resolving of such expressions, then mappers caches them and returns cached version after first call.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
+    /// <typeparam name="TParam1">Parameter type.</typeparam>
+    /// <typeparam name="TParam2">Parameter type.</typeparam>
     public interface ISelectExpression<TSource, TDest, in TParam1, in TParam2>
     {
+		/// <summary>
+        /// Select Projection epxression factory method.
+        /// </summary>
+        /// <returns>Select Projection expression.</returns>
         Expression<Func<TSource, TDest>> GetSelectExpression(TParam1 param1, TParam2 param2);
     }
 
+    /// <summary>
+    /// Dynamic Select Projection expression method container. If you use Mapper for resolving of such expressions, then factory method only is cached.
+    /// </summary>
+    /// <typeparam name="TSource">Source element type.</typeparam>
+    /// <typeparam name="TDest">Destanation element type.</typeparam>
     public interface ISelectDynamicExpression<TSource, TDest, in TParam1, in TParam2>: ISelectExpression<TSource, TDest, TParam1, TParam2>
     {
     }
@@ -445,7 +627,7 @@ namespace System.Linq.Expressions
 
 namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 {
-    public class SelectResolverWith2Params
+    internal class SelectResolverWith2Params
     {
         private readonly object _sync = new object();
 
@@ -490,6 +672,71 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     _dynamicExpressionFactories.Add(id, factory);
                 }
             }
+        }
+
+        public void RegisterAll(object mapper, Type mapperType, Type[] implementedInterfaces)
+        {
+            Type selectExpressionType = typeof (ISelectExpression<,,,>);
+            Type dynamicSelectExpressionType = typeof (ISelectDynamicExpression<,,,>);
+
+            var selectExpressions = implementedInterfaces.Where(i => i.GUID == selectExpressionType.GUID || i.GUID == dynamicSelectExpressionType.GUID)
+                .Select(i =>
+                {
+                    var genericArgs = i.GetGenericArguments();
+                    return new
+                    {
+                        InterfaceType = i,
+						GenericArguments = genericArgs,
+                        PairId = PairId.GetId(genericArgs[0], genericArgs[1])
+                    };
+                })
+                .GroupBy(i => i.PairId)
+                .Select(
+                    g => g.FirstOrDefault(i => i.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+                         ?? g.First(i => i.InterfaceType.GUID == selectExpressionType.GUID)
+                )
+                .Select(interfaceDescription =>
+                {
+                    var methodInfo = mapperType.GetInterfaceMap(interfaceDescription.InterfaceType).InterfaceMethods.SingleOrDefault()
+                                     ?? interfaceDescription.InterfaceType.GetInterfaces().SelectMany(i => mapperType.GetInterfaceMap(i).TargetMethods).Single();
+
+					Type delegateType = typeof (Func<,,>).MakeGenericType(
+						interfaceDescription.GenericArguments[2],
+						interfaceDescription.GenericArguments[3],
+                    typeof (Expression<>).MakeGenericType(
+							typeof (Func<,>).MakeGenericType(interfaceDescription.PairId.SourceId, interfaceDescription.PairId.DestId)
+							)
+						);
+
+                    var factoryDelegate = Delegate.CreateDelegate(delegateType, mapper, methodInfo, true);
+
+                    return new
+                    {
+                        InterfaceType = interfaceDescription.InterfaceType,
+                        PairId = interfaceDescription.PairId,
+                        FactoryDelegate = factoryDelegate
+                    };
+                })
+				.ToList();
+
+			lock(_sync)
+			{
+				foreach (var selectExpression in selectExpressions)
+				{
+					Dictionary<PairId, Delegate> cacheDictionary;
+					if (selectExpression.InterfaceType.GUID == dynamicSelectExpressionType.GUID)
+						cacheDictionary = _dynamicExpressionFactories;
+					else if (selectExpression.InterfaceType.GUID == selectExpressionType.GUID)
+						cacheDictionary = _expressionFactories;
+					else
+						throw new NotSupportedException(String.Format("The interface {0} caching is not supported.", selectExpression.InterfaceType.FullName));
+
+					if (cacheDictionary.ContainsKey(selectExpression.PairId))
+						cacheDictionary[selectExpression.PairId] = selectExpression.FactoryDelegate;
+					else
+						cacheDictionary.Add(selectExpression.PairId, selectExpression.FactoryDelegate);
+				}
+			}
         }
 
         public bool TryGetFromCache<TSource, TDest, TParam1, TParam2>(TParam1 param1, TParam2 param2, out Expression<Func<TSource, TDest>> expression)
@@ -544,11 +791,18 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
             Dictionary<PairId, LambdaExpression> expressions = GetOrAddParamExpressionsDictionary(param1, param2, add: false);
 
+            Delegate factoryDelegate;
             LambdaExpression lambdaExpression;
 
             if (expressions != null && expressions.TryGetValue(id, out lambdaExpression))
             {
                 expression = (Expression<Func<TSource, TDest>>)lambdaExpression;
+
+                return true;
+            }
+            else if (_dynamicExpressionFactories.TryGetValue(id, out factoryDelegate))
+            {
+                expression = ((Func<TParam1, TParam2, Expression<Func<TSource, TDest>>>) factoryDelegate)(param1, param2);
 
                 return true;
             }
@@ -564,8 +818,6 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
                     return true;
                 }
 
-
-                Delegate factoryDelegate;
                 Func<TParam1, TParam2, Expression<Func<TSource, TDest>>> factory;
 
                 if (_expressionFactories.TryGetValue(id, out factoryDelegate))

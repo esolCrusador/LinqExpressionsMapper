@@ -55,6 +55,7 @@
     <Compile Include="Extensions\FilterExpressionExtensions.cs" />
     <Compile Include="Extensions\IFilterExpression.cs" />
     <Compile Include="Extensions\LinqExpression\AggregateExpressionExtensions.cs" />
+    <Compile Include="Extensions\LinqExpression\ExpressionResolvingExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\ClassBehaviourExpressionExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\ContinuationsExpressionExtensions.cs" />
     <Compile Include="Extensions\LinqExpression\EnumExpressionExtensions.cs" />
@@ -69,13 +70,19 @@
     <Compile Include="Extensions\LinqExpression\Visitors\MemberRebinder.cs" />
     <Compile Include="Extensions\LinqExpression\Visitors\ParameterChangeTypeRebinder.cs" />
     <Compile Include="Extensions\LinqExpression\Visitors\ParameterRebinder.cs" />
+    <Compile Include="Extensions\LinqExpression\Visitors\ResolveExpressionRebinder.cs" />
     <Compile Include="Models\PairId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resolvers\Mapper.cs" />
     <Compile Include="Resolvers\MapperLinqExpressionsExtension.cs" />
     <Compile Include="Resolvers\MapperLinqSelectExtension.cs" />
-    <Compile Include="Resolvers\MapperResolver\IPropertiesMapper.cs" />
-    <Compile Include="Resolvers\MapperResolver\MappingResolver.cs" />
+    <Compile Include="Resolvers\MappingResolver\IMultipleMappings.cs" />
+    <Compile Include="Resolvers\MappingResolver\IPropertiesMapper.cs" />
+    <Compile Include="Resolvers\MappingResolver\MappingResolver.cs" />
+    <Compile Include="Resolvers\MappingBuilders\EnumerableMappingBuilder.cs" />
+    <Compile Include="Resolvers\MappingBuilders\ExpressionMappingBuilder.cs" />
+    <Compile Include="Resolvers\MappingBuilders\PropertiesMappingBuilder.cs" />
+    <Compile Include="Resolvers\MappingBuilders\QueryableMappingBuilder.cs" />
     <Compile Include="Resolvers\SelectsResolver\SelectResolvers.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -87,6 +94,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Culture.cs</LastGenOutput>
     </Content>
+    <None Include="tools\uninstall.ps1" />
+    <None Include="tools\install.ps1" />
     <Content Include="Resolvers\SelectsResolver\SelectResolvers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SelectResolvers.cs</LastGenOutput>

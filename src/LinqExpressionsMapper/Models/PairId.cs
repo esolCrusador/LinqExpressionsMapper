@@ -3,30 +3,30 @@ using System.Collections.Generic;
 
 namespace LinqExpressionsMapper.Models
 {
-    internal class PairId<TSourceId, TDestId> : IEqualityComparer<PairId<TSourceId, TDestId>>, IEquatable<PairId<TSourceId, TDestId>>
+    internal class PairIdBase : IEqualityComparer<PairIdBase>, IEquatable<PairIdBase>
     {
-        public PairId(TSourceId sourceId, TDestId destId)
+        public PairIdBase(Type sourceId, Type destId)
         {
             SourceId = sourceId;
             DestId = destId;
         }
 
-        public TSourceId SourceId { get; private set; }
+        public Type SourceId { get; private set; }
 
-        public TDestId DestId { get; private set; }
+        public Type DestId { get; private set; }
 
         #region IEqualityComparer<PairId<TSourceId, TDestId>> members
 
-        public bool Equals(PairId<TSourceId, TDestId> x, PairId<TSourceId, TDestId> y)
+        public bool Equals(PairIdBase x, PairIdBase y)
         {
             if (ReferenceEquals(x, y)) return true;
             if (ReferenceEquals(x, null)) return false;
             if (ReferenceEquals(y, null)) return false;
             if (x.GetType() != y.GetType()) return false;
-            return x.SourceId.Equals(y.SourceId) && x.DestId.Equals(y.DestId);
+            return x.SourceId == y.SourceId && x.DestId == y.DestId;
         }
 
-        public int GetHashCode(PairId<TSourceId, TDestId> obj)
+        public int GetHashCode(PairIdBase obj)
         {
             unchecked
             {
@@ -36,7 +36,7 @@ namespace LinqExpressionsMapper.Models
 
         #endregion
 
-        public bool Equals(PairId<TSourceId, TDestId> other)
+        public bool Equals(PairIdBase other)
         {
             return Equals(this, other);
         }
@@ -57,7 +57,7 @@ namespace LinqExpressionsMapper.Models
                 return false;
             }
 
-            return Equals(this, (PairId<TSourceId, TDestId>)obj);
+            return Equals(this, (PairIdBase)obj);
         }
 
         public override string ToString()
@@ -66,7 +66,7 @@ namespace LinqExpressionsMapper.Models
         }
     }
 
-    internal class PairId : PairId<Type, Type>
+    internal class PairId : PairIdBase
     {
         private string _name;
 
@@ -80,6 +80,11 @@ namespace LinqExpressionsMapper.Models
             Type sourceType = typeof(TSource);
             Type destType = typeof(TDset);
 
+            return GetId(sourceType, destType);
+        }
+
+        public static PairId GetId(Type sourceType, Type destType)
+        {
             var pairId = new PairId(sourceType, destType)
             {
                 _name = "<" + sourceType.Name + "," + destType.Name + ">"

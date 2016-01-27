@@ -19,9 +19,9 @@ namespace System.Linq.Expressions
             where TSource : TBaseSource
             where TResult : TBaseResult
         {
-            var rebinder = new InitInheritanceRebinder<TBaseSource, TBaseResult, TSource, TResult>(baseInit, init);
+            var rebinder = new InitInheritanceRebinder<TBaseSource, TBaseResult, TSource, TResult>(baseInit);
 
-            return rebinder.ExtendInitialization();
+            return rebinder.ExtendInitialization(init);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace System.Linq.Expressions
         {
             var rebinder = new InitFromMemberInheritanceRebinder<TBaseSource, TBaseResult, TSource, TResult>(baseInit, entityMember, init);
 
-            return rebinder.ExtendInitialization();
+            return rebinder.ExtendInitialization(init);
         }
 
         /// <summary>
@@ -60,9 +60,9 @@ namespace System.Linq.Expressions
             Expression<Func<TResult, TMember>> member,
             Expression<Func<TSourceMember, TMember>> memberInit)
         {
-            var rebinder = new MemberInitRebinder<TSource, TResult, TSourceMember, TMember>(init, sourceMember, member, memberInit);
+            var rebinder = new MemberInitRebinder<TSource, TResult, TSourceMember, TMember>(sourceMember, member, memberInit);
 
-            return rebinder.ExtendInitialization();
+            return rebinder.ExtendInitialization(init);
         }
         
         /// <summary>
@@ -82,9 +82,9 @@ namespace System.Linq.Expressions
             Expression<Func<TResult, IEnumerable<TMember>>> member,
             Expression<Func<TSourceMember, TMember>> memberInit)
         {
-            var rebinder = new EnumerableMemberInitRebinder<TSource, TResult, TSourceMember, TMember>(init, sourceMember, member, memberInit);
+            var rebinder = new EnumerableMemberInitRebinder<TSource, TResult, TSourceMember, TMember>(sourceMember, member, memberInit);
 
-            return rebinder.ExtendInitialization();
+            return rebinder.ExtendInitialization(init);
         }
 
         /// <summary>
@@ -101,9 +101,9 @@ namespace System.Linq.Expressions
             Expression<Func<TResult, TMember>> member,
             Expression<Func<TSource, TMember>> memberInit)
         {
-            var rebinder = new MemberInitRebinder<TSource, TResult, TSource, TMember>(init, null, member, memberInit);
+            var rebinder = new MemberInitRebinder<TSource, TResult, TSource, TMember>(null, member, memberInit);
 
-            return rebinder.ExtendInitialization();
+            return rebinder.ExtendInitialization(init);
         }
     }
 }
