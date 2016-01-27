@@ -152,8 +152,9 @@ Project is available on [nuget.org](https://www.nuget.org/packages/LinqExpressio
     };
     select = select.ApplyExpressions();
  — `expr.Invoke(param)`(`expr.InvokeEnumerable(enumerableParam)`) creates placeholder for `expr` invokation. It means that when `ApplyExpressions()` method is called all `Invoke`, `InvokeEnumerable` methods are replaced with `expr` body with `param` argument.
+
  
- # LinqExpressionsMapper
+# LinqExpressionsMapper
 **LinqExpressionsMapper** is LINQ extensions library for EntityFramework and other .NET LINQ ORMs.
 Here is sample project [LinqExpressionsMapper.Samples](https://github.com/esolCrusador/LinqExpressionsMapper.Samples)
 You can find more info in [wiki](https://github.com/esolCrusador/LinqExpressionsMapper/wiki).
