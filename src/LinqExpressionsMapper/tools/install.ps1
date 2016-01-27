@@ -1,4 +1,4 @@
-﻿#param($installPath, $toolsPath, $package, $project)
+﻿param($installPath, $toolsPath, $package, $project)
 
 # PS script version check.
 $currentVersion = 1;
@@ -47,7 +47,7 @@ Write-Host Updating API...
 							 "MapSelect\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
 							 "MapSelect\<(?<TMapper>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
 							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
-							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)"
+							 "ResolveSelect(External)?\<(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)",
 							 "ResolveSelect(External)?\<(?<TSelect>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+)\>\( ?\)",
 							 "ResolveSelect(External)?\<(?<TSelect>[\w+_\.]+), ?(?<TSource>[\w+_\.]+), ?(?<TDest>[\w+_\.]+), ?(?<TParam>[\w+_\.]+)\>\((?<arg1>[\w+_\.\d\[\]]+)\)"
 
