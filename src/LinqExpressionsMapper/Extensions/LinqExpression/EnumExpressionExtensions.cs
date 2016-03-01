@@ -3,13 +3,25 @@ using LinqExpressionsMapper.Extensions;
 
 namespace System.Linq.Expressions
 {
+    /// <summary>
+    /// Class for bilding expressions related to enums.
+    /// </summary>
     public static class EnumExpressionExtensions
     {
-        private static readonly ConstantExpression EmptyStringExpression = Expression.Constant(String.Empty, typeof(string));
-        private static readonly ConstantExpression NullStringExpression = Expression.Constant(null, typeof(string));
-        private static readonly Type StringType = typeof (String);
+        private static readonly Type StringType = typeof(string);
+        private static readonly ConstantExpression EmptyStringExpression = Expression.Constant("", StringType);
+        private static readonly ConstantExpression NullStringExpression = Expression.Constant(null, StringType);
 
-        public static Expression<Func<TEnum, string>> GetEnumToStringExpression<TEnum>(Func<Enum, string> toString)
+        /// <summary>
+        /// Gets Expression for Enum to string conversion.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type. May be nullable.</typeparam>
+        /// <param name="toString">Enum to string conversion delegate.</param>
+        /// <param name="nullEnumString">String for null enum value.</param>
+        /// <param name="zeroEnumString">String for 0 enum value.</param>
+        /// <param name="delimiter">Delimiter for [Flags] enum.</param>
+        /// <returns></returns>
+        public static Expression<Func<TEnum, string>> GetEnumToStringExpression<TEnum>(Func<Enum, string> toString, string nullEnumString = null, string zeroEnumString = "", string delimiter = ", ")
         {
             Type enumType = typeof (TEnum);
 
@@ -30,41 +42,57 @@ namespace System.Linq.Expressions
             Enum zeroEnumVal = (Enum)Enum.ToObject(enumExactType, zero);
 
             Expression zeroStringExpression;
-            string zeroString;
-            if (allMembers.TryGetValue(zeroEnumVal, out zeroString))
+
+            if (zeroEnumString == "")
             {
-                allMembers.Remove(zeroEnumVal);
-                zeroStringExpression = Expression.Constant(zeroString, StringType);
+                string zeroString;
+                if (allMembers.TryGetValue(zeroEnumVal, out zeroString))
+                {
+                    allMembers.Remove(zeroEnumVal);
+                    zeroStringExpression = Expression.Constant(zeroString, StringType);
+                }
+                else
+                {
+                    zeroStringExpression = EmptyStringExpression;
+                }
             }
             else
             {
-                zeroStringExpression = EmptyStringExpression;
+                if (allMembers.ContainsKey(zeroEnumVal))
+                    allMembers.Remove(zeroEnumVal);
+
+                zeroStringExpression = Expression.Constant(zeroEnumString, StringType);
             }
 
             Expression zeroConstant = Expression.Constant(zeroEnumVal, enumType);//Expression.Convert(Expression.Constant(zero, enumUnderlyingType), enumType);
 
+            Expression nullStringExpression = nullEnumString == null ? NullStringExpression : Expression.Constant(nullEnumString, StringType);
+
             //Flag enum.
-            if (enumExactType.GetCustomAttributes(typeof (FlagsAttribute), false).Any())
+            if (enumExactType.GetCustomAttributes(typeof (FlagsAttribute), false).Length != 0)
             {
-                return GetFlagEnumToStringExpression<TEnum>(allMembers, enumType, enumExactType, enumUnderlyingType, zeroConstant, zeroStringExpression);
+                return GetFlagEnumToStringExpression<TEnum>(allMembers, enumType, enumExactType, enumUnderlyingType, zeroConstant, zeroStringExpression, nullStringExpression, delimiter);
             }
             else
             {
-                return GetEnumToStringExpression<TEnum>(allMembers, enumType, enumExactType, zeroConstant, zeroStringExpression);
+                return GetEnumToStringExpression<TEnum>(allMembers, enumType, enumExactType, zeroConstant, zeroStringExpression, nullStringExpression);
             }
         }
 
         private static Expression<Func<TEnum, string>> GetFlagEnumToStringExpression<TEnum>(
             Dictionary<Enum, string> allMembers,
-            Type enumType,
+            Type enumType, 
             Type enumExactType,
             Type enumUnderlyingType,
-            Expression zeroConstant,
-            Expression zeroStringExpression)
+            Expression zeroConstant, 
+            Expression zeroStringExpression,
+            Expression nullStringExpression,
+            string delimiter)
         {
             ParameterExpression parameter = Expression.Parameter(enumType, enumExactType.Name.ToLower());
+            int delimiterLength = delimiter.Length;
 
-            Expression<Func<string, string>> subStringExpression = enumResult => enumResult.Substring(2, int.MaxValue);
+            Expression<Func<string, string>> subStringExpression = enumResult => enumResult.Substring(delimiterLength, int.MaxValue);
 
             // Ex: gender => ((gender & Gender.Male) == Gender.Male?", Male":"") + ((gender & Gender.Female) == Gender.Female?", Female":"") + ...; Result: ", Male, Female ..."
             Expression<Func<TEnum, string>> allMembersToString = allMembers.Select(kvp =>
@@ -72,7 +100,7 @@ namespace System.Linq.Expressions
                 // (int)Gender.Male
                 Expression compareVal = Expression.Convert(Expression.Constant(kvp.Key, enumExactType), enumUnderlyingType);
                 // ", Male"
-                ConstantExpression resultString = Expression.Constant(", " + kvp.Value, StringType);
+                ConstantExpression resultString = Expression.Constant(delimiter + kvp.Value, StringType);
 
                 // (gender & Gender.Male) == Gender.Male
                 Expression equalsExpression = Expression.Equal(Expression.And(Expression.Convert(parameter, enumUnderlyingType), compareVal), compareVal);
@@ -97,7 +125,7 @@ namespace System.Linq.Expressions
             {
                 // Ex: gender => gender==null ? null : (gender==0 ? "" : (((gender & Gender.Male) == Gender.Male?", Male":"") + ((gender & Gender.Female) == Gender.Female?", Female":"") + ...).Substring(2));
                 ConstantExpression nullEnumVal = Expression.Constant(null, enumType);
-                ConditionalExpression nullStringIfNullValue = Expression.Condition(Expression.Equal(parameter, nullEnumVal), NullStringExpression, notNullExpression.Body);
+                ConditionalExpression nullStringIfNullValue = Expression.Condition(Expression.Equal(parameter, nullEnumVal), nullStringExpression, notNullExpression.Body);
 
                 return Expression.Lambda<Func<TEnum, string>>(nullStringIfNullValue, parameter);
             }
@@ -113,11 +141,12 @@ namespace System.Linq.Expressions
             Type enumType, 
             Type enumExactType, 
             Expression zeroConstant, 
-            Expression zeroStringExpression)
+            Expression zeroStringExpression,
+            Expression nullStringExpression)
         {
             ParameterExpression parameter = Expression.Parameter(enumType, enumExactType.Name.ToLower());
 
-            Expression resultBody = NullStringExpression;
+            Expression resultBody = nullStringExpression;
 
             foreach (var kvp in allMembers)
             {
@@ -137,7 +166,7 @@ namespace System.Linq.Expressions
             {
                 ConstantExpression nullEnumVal = Expression.Constant(null, enumType);
                 // gender => gender == null ? null : (gender == 0 ? "" : (gender == Gender.Male ? "Male" : (gender == Gender.Female ? "Female" : (...))));
-                ConditionalExpression nullStringIfNullValue = Expression.Condition(Expression.Equal(parameter, nullEnumVal), NullStringExpression, resultBody);
+                ConditionalExpression nullStringIfNullValue = Expression.Condition(Expression.Equal(parameter, nullEnumVal), nullStringExpression, resultBody);
 
                 return Expression.Lambda<Func<TEnum, string>>(nullStringIfNullValue, parameter);
             }
