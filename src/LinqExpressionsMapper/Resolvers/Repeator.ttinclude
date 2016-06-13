@@ -1,0 +1,62 @@
+﻿<#+ public string Repeat(int start, int end, string format, string separator) 
+{
+	return String.Join(separator, Enumerable.Range(start, end).Select(i => String.Format(format, i)));
+}
+
+public string GenericParams(int start, int end)
+{
+	return Repeat(start, end, "TParam{0}", ", ");
+}
+
+public string GenericParamsPre(int start, int end)
+{
+	return Repeat(start, end, "TParam{0}, ", "");
+}
+
+public string GenericParamsApp(int start, int end)
+{
+	return Repeat(start, end, ", TParam{0}", "");
+}
+
+public string GenericArguments(int start, int end)
+{
+	return Repeat(start, end, "TParam{0} param{0}", ", ");
+}
+
+public string GenericArgumentsPre(int start, int end)
+{
+	return Repeat(start, end, "TParam{0} param{0}, ", "");
+}
+
+public string GenericArgumentsApp(int start, int end)
+{
+	return Repeat(start, end, ", TParam{0} param{0}", "");
+}
+
+public string Arguments(int start, int end)
+{
+	return Repeat(start, end, "param{0}", ", ");
+}
+
+public string ArgumentsPre(int start, int end)
+{
+	return Repeat(start, end, "param{0}, ", "");
+}
+
+public string ArgumentsApp(int start, int end)
+{
+	return Repeat(start, end, ", param{0}", "");
+}
+
+public string SurroundedGenericArguments(int start, int end)
+{
+	if(end==0)
+	{
+		return string.Empty;
+	}
+	else
+	{
+		return "<" + Repeat(start, end, "TParam{0}", ", ") + ">";
+	}
+}
+#>

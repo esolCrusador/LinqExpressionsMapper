@@ -188,6 +188,22 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
             }
         }
 
+        public Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest>()
+            where TSelect: ISelectExpression<TSource, TDest>, new()
+        {
+            Expression<Func<TSource, TDest>> result;
+
+            if (!TryGetFromCache(out result))
+            {
+                var resolver = new TSelect();
+                Mapper.Register(resolver);
+
+                result = GetExternalExpression<TSource, TDest>();
+            }
+
+            return result;
+        }
+
         private bool TryGetOrActivate<TSource, TDest>(Func<ISelectExpression<TSource, TDest>> activator, out Expression<Func<TSource, TDest>> expression)
         {
             PairId id = PairId.GetId<TSource, TDest>();
@@ -249,7 +265,7 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
 
                     if (selectResolver is ISelectDynamicExpression<TSource, TDest>)
                     {
-                        _dynamicExpressionFactories.Add(id, factory);
+                        Mapper.Register((ISelectDynamicExpression<TSource, TDest>)selectResolver);
                         expression = factory();
 
                         return true;
@@ -478,6 +494,22 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
             {
                 throw new NotSupportedException(String.Format("Convert expression for {0} -> {1} does not exist.", typeof(TSource).FullName, typeof(TDest).FullName), ex);
             }
+        }
+
+        public Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest, TParam1>(TParam1 param1)
+            where TSelect: ISelectExpression<TSource, TDest, TParam1>, new()
+        {
+            Expression<Func<TSource, TDest>> result;
+
+            if (!TryGetFromCache(param1, out result))
+            {
+                var resolver = new TSelect();
+                Mapper.Register(resolver);
+
+                result = GetExternalExpression<TSource, TDest, TParam1>(param1);
+            }
+
+            return result;
         }
 
         private bool TryGetOrActivate<TSource, TDest, TParam1>(TParam1 param1, Func<ISelectExpression<TSource, TDest, TParam1>> activator, out Expression<Func<TSource, TDest>> expression)
@@ -783,6 +815,22 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
             {
                 throw new NotSupportedException(String.Format("Convert expression for {0} -> {1} does not exist.", typeof(TSource).FullName, typeof(TDest).FullName), ex);
             }
+        }
+
+        public Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest, TParam1, TParam2>(TParam1 param1, TParam2 param2)
+            where TSelect: ISelectExpression<TSource, TDest, TParam1, TParam2>, new()
+        {
+            Expression<Func<TSource, TDest>> result;
+
+            if (!TryGetFromCache(param1, param2, out result))
+            {
+                var resolver = new TSelect();
+                Mapper.Register((ISelectExpression<TSource, TDest, TParam1, TParam2>)resolver);
+
+                result = GetExternalExpression<TSource, TDest, TParam1, TParam2>(param1, param2);
+            }
+
+            return result;
         }
 
         private bool TryGetOrActivate<TSource, TDest, TParam1, TParam2>(TParam1 param1, TParam2 param2, Func<ISelectExpression<TSource, TDest, TParam1, TParam2>> activator, out Expression<Func<TSource, TDest>> expression)

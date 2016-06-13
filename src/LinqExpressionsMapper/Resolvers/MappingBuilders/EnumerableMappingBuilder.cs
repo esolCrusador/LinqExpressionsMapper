@@ -25,7 +25,7 @@ namespace LinqExpressionsMapper
         public IEnumerable<TDest> To<TDest>()
             where TDest : class, new()
         {
-            return _sourceEnumerable.Select(Mapper.GetMapper<TSource, TDest>());
+            return _sourceEnumerable.Select(Mapper.MappingResolverWith0Params.GetMapper<TSource, TDest>());
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace LinqExpressionsMapper
 
         private IEnumerable<TDest> GetEnumerable()
         {
-            return _sourceEnumerable.Select(Mapper.GetMapper<TSource, TDest>());
+            return _sourceEnumerable.Select(Mapper.MappingResolverWith0Params.GetMapper<TSource, TDest>());
         }
     }
 
@@ -104,7 +104,7 @@ namespace LinqExpressionsMapper
 
         private IEnumerable<TDest> GetEnumerable()
         {
-            return _sourceEnumerable.Select(Mapper.GetMapper<TSelect, TSource, TDest>());
+            return _sourceEnumerable.Select(Mapper.MappingResolverWith0Params.GetMapper<TSelect, TSource, TDest>());
         }
     }
 

@@ -11,7 +11,7 @@ namespace System.Linq.Expressions
             Expression<Func<TResult, TMember>> member)
             where TMember : ISelectExpression<TSourceMember, TMember>, new()
         {
-            return init.AddMemberInit(sourceMember, member, Mapper.GetExpression<TSourceMember, TMember>());
+            return init.AddMemberInit(sourceMember, member, Mapper.SelectResolverWith0Params.GetExpression<TSourceMember, TMember>());
         }
 
         public static Expression<Func<TSource, TResult>> ResolveMemberInit<TSource, TResult, TSourceMember, TMember>(this Expression<Func<TSource, TResult>> init,
@@ -19,7 +19,7 @@ namespace System.Linq.Expressions
             Expression<Func<TResult, IEnumerable<TMember>>> member)
             where TMember : ISelectExpression<TSourceMember, TMember>, new()
         {
-            return init.AddMemberInit(sourceMember, member, Mapper.GetExpression<TSourceMember, TMember>());
+            return init.AddMemberInit(sourceMember, member, Mapper.SelectResolverWith0Params.GetExpression<TSourceMember, TMember>());
         }
 
         public static Expression<Func<TSource, TResult>> ResolveMemberInit<TSource, TResult, TSourceMember, TMember>(this Expression<Func<TSource, TResult>> init,
@@ -27,7 +27,7 @@ namespace System.Linq.Expressions
             Expression<Func<TResult, IEnumerable<TMember>>> member)
             where TMember : ISelectExpression<TSourceMember, TMember>, new()
         {
-            return init.AddMemberInit(sourceMember.Continue(source => source.AsEnumerable()), member, Mapper.GetExpression<TSourceMember, TMember>());
+            return init.AddMemberInit(sourceMember.Continue(source => source.AsEnumerable()), member, Mapper.SelectResolverWith0Params.GetExpression<TSourceMember, TMember>());
         }
 
         public static Expression<Func<TSource, TResult>> ResolveMemberInit<TSource, TResult, TSourceMember, TMember>(this Expression<Func<TSource, TResult>> init,
@@ -36,7 +36,7 @@ namespace System.Linq.Expressions
             Culture cultureId)
             where TMember : ISelectExpression<TSourceMember, TMember, Culture>, new()
         {
-            return init.AddMemberInit(sourceMember, member, Mapper.GetExpression<TSourceMember, TMember, Culture>(cultureId));
+            return init.AddMemberInit(sourceMember, member, Mapper.SelectResolverWith1Params.GetExpression<TSourceMember, TMember, Culture>(cultureId));
         }
 
         public static Expression<Func<TSource, TResult>> ResolveMemberInit<TSource, TResult, TSourceMember, TMember>(this Expression<Func<TSource, TResult>> init,
@@ -45,7 +45,7 @@ namespace System.Linq.Expressions
             Culture cultureId)
             where TMember : ISelectExpression<TSourceMember, TMember, Culture>, new()
         {
-            return init.AddMemberInit(sourceMember, member, Mapper.GetExpression<TSourceMember, TMember, Culture>(cultureId));
+            return init.AddMemberInit(sourceMember, member, Mapper.SelectResolverWith1Params.GetExpression<TSourceMember, TMember, Culture>(cultureId));
         }
 
         public static Expression<Func<TSource, TResult>> ResolveMemberInit<TSource, TResult, TSourceMember, TMember>(this Expression<Func<TSource, TResult>> init,
@@ -54,7 +54,7 @@ namespace System.Linq.Expressions
             Culture cultureId)
             where TMember : ISelectExpression<TSourceMember, TMember>, new()
         {
-            return init.AddMemberInit(sourceMember.Continue(source => source.AsEnumerable()), member, Mapper.GetExpression<TSourceMember, TMember>());
+            return init.AddMemberInit(sourceMember.Continue(source => source.AsEnumerable()), member, Mapper.SelectResolverWith0Params.GetExpression<TSourceMember, TMember>());
         }
     }
 }

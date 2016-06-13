@@ -33,7 +33,7 @@ namespace LinqExpressionsMapper
         /// <returns>Projection expression.</returns>
         public Expression<Func<TSource, TDest>> GetExpression()
         {
-            return Mapper.GetExternalExpression<TSource, TDest>();
+            return Mapper.SelectResolverWith0Params.GetExternalExpression<TSource, TDest>();
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace LinqExpressionsMapper
         /// <returns>Projection expression.</returns>
         public Expression<Func<TSource, TDest>> GetExpression()
         {
-            return Mapper.GetExpression<TSelect, TSource, TDest>();
+            return Mapper.SelectResolverWith0Params.GetExpression<TSelect, TSource, TDest>();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace LinqExpressionsMapper
         /// <returns>Projection expression.</returns>
         public Expression<Func<TSource, TDest>> GetExpression()
         {
-            return Mapper.GetExternalExpression<TSource, TDest, TParam>(_param);
+            return Mapper.SelectResolverWith1Params.GetExternalExpression<TSource, TDest, TParam>(_param);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace LinqExpressionsMapper
         /// <returns>Projection expression.</returns>
         public Expression<Func<TSource, TDest>> GetExpression()
         {
-            return Mapper.GetExpression<TSelect, TSource, TDest, TParam>(_param);
+            return Mapper.SelectResolverWith1Params.GetExpression<TSelect, TSource, TDest, TParam>(_param);
         }
 
         /// <summary>

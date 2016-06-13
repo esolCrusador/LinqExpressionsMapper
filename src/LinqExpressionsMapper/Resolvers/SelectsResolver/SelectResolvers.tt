@@ -1,6 +1,7 @@
 ﻿<#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ include file="..\Repeator.ttinclude" #>
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -207,6 +208,22 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
             }
         }
 
+        public Expression<Func<TSource, TDest>> GetExpression<TSelect, TSource, TDest<#= GenericParamsApp(1, i) #>>(<#= GenericArguments(1, i) #>)
+            where TSelect: ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>, new()
+        {
+            Expression<Func<TSource, TDest>> result;
+
+            if (!TryGetFromCache(<#= ArgumentsPre(1, i) #>out result))
+            {
+                var resolver = new TSelect();
+                Mapper.Register(resolver);
+
+                result = GetExternalExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>(<#= Arguments(1, i) #>);
+            }
+
+            return result;
+        }
+
         private bool TryGetOrActivate<TSource, TDest<#= GenericParamsApp(1, i) #>>(<#= GenericArgumentsPre(1, i) #>Func<ISelectExpression<TSource, TDest<#= GenericParamsApp(1, i) #>>> activator, out Expression<Func<TSource, TDest>> expression)
         {
             PairId id = PairId.GetId<TSource, TDest>();
@@ -341,65 +358,3 @@ namespace LinqExpressionsMapper.Resolvers.SelectsResolver
     }
 }
 <# } #>
-<#+ public string Repeat(int start, int end, string format, string separator) 
-{
-	return String.Join(separator, Enumerable.Range(start, end).Select(i => String.Format(format, i)));
-}
-
-public string GenericParams(int start, int end)
-{
-	return Repeat(start, end, "TParam{0}", ", ");
-}
-
-public string GenericParamsPre(int start, int end)
-{
-	return Repeat(start, end, "TParam{0}, ", "");
-}
-
-public string GenericParamsApp(int start, int end)
-{
-	return Repeat(start, end, ", TParam{0}", "");
-}
-
-public string GenericArguments(int start, int end)
-{
-	return Repeat(start, end, "TParam{0} param{0}", ", ");
-}
-
-public string GenericArgumentsPre(int start, int end)
-{
-	return Repeat(start, end, "TParam{0} param{0}, ", "");
-}
-
-public string GenericArgumentsApp(int start, int end)
-{
-	return Repeat(start, end, ", TParam{0} param{0}", "");
-}
-
-public string Arguments(int start, int end)
-{
-	return Repeat(start, end, "param{0}", ", ");
-}
-
-public string ArgumentsPre(int start, int end)
-{
-	return Repeat(start, end, "param{0}, ", "");
-}
-
-public string ArgumentsApp(int start, int end)
-{
-	return Repeat(start, end, ", param{0}", "");
-}
-
-public string SurroundedGenericArguments(int start, int end)
-{
-	if(end==0)
-	{
-		return string.Empty;
-	}
-	else
-	{
-		return "<" + Repeat(start, end, "TParam{0}", ", ") + ">";
-	}
-}
-#>

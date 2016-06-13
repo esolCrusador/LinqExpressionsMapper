@@ -65,7 +65,7 @@ namespace LinqExpressionsMapper
         /// <returns>Destanation element instance.</returns>
         public TDest Map()
         {
-            return Mapper.Map<TSource, TDest>(_source);
+            return Mapper.MappingResolverWith0Params.Map<TSource, TDest>(_source);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace LinqExpressionsMapper
         /// <returns>Destanation element instance.</returns>
         public TDest Map()
         {
-            return Mapper.Map<TMapper, TSource, TDest>(_source);
+            return Mapper.MappingResolverWith0Params.Map<TMapper, TSource, TDest>(_source);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace LinqExpressionsMapper
         /// <returns>Destanation element instance.</returns>
         public TDest Map()
         {
-            return Mapper.Map<TSource, TDest>(_source, _dest);
+            return Mapper.MappingResolverWith0Params.Map<TSource, TDest>(_source, _dest);
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace LinqExpressionsMapper
         /// <returns>Destanation element instance.</returns>
         public TDest Map()
         {
-            return Mapper.Map<TMapper, TSource, TDest>(_source, _dest);
+            return Mapper.MappingResolverWith0Params.Map<TMapper, TSource, TDest>(_source, _dest);
         }
 
         /// <summary>

@@ -24,7 +24,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
         /// <returns>Query of destanation elements.</returns>
         public IQueryable<TDest> To<TDest>()
         {
-            return _sourceQueryable.Select(Mapper.GetExternalExpression<TSource, TDest>());
+            return _sourceQueryable.Select(Mapper.SelectResolverWith0Params.GetExternalExpression<TSource, TDest>());
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
 
         private IQueryable<TDest> GetQueryable()
         {
-            return _sourceQueryable.Select(Mapper.GetExternalExpression<TSource, TDest>());
+            return _sourceQueryable.Select(Mapper.SelectResolverWith0Params.GetExternalExpression<TSource, TDest>());
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
 
         private IQueryable<TDest> GetQueryable()
         {
-            return _sourceQueryable.Select(Mapper.GetExpression<TSelect, TSource, TDest>());
+            return _sourceQueryable.Select(Mapper.SelectResolverWith0Params.GetExpression<TSelect, TSource, TDest>());
         }
     }
 
@@ -139,7 +139,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
 
         private IQueryable<TDest> GetQueryable()
         {
-            return _sourceQueryable.Select(Mapper.GetExternalExpression<TSource, TDest, TParam>(_param));
+            return _sourceQueryable.Select(Mapper.SelectResolverWith1Params.GetExternalExpression<TSource, TDest, TParam>(_param));
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace LinqExpressionsMapper.Resolvers.MappingBuilders
 
         private IQueryable<TDest> GetQueryable()
         {
-            return _sourceQueryable.Select(Mapper.GetExpression<TSelect, TSource, TDest, TParam>(_param));
+            return _sourceQueryable.Select(Mapper.SelectResolverWith1Params.GetExpression<TSelect, TSource, TDest, TParam>(_param));
         }
     }
 
